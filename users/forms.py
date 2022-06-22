@@ -5,10 +5,9 @@ from .models import Account
 
 class RegistrationForm(UserCreationForm):
 	email = forms.EmailField(max_length=60, help_text="Enter valid email address.")
-
 	class Meta:
 		model = Account
-		fields = ("email", "username", "first_name", "last_name", "password1", "password2")
+		fields = ("email", "username", "first_name", "last_name", "is_venue", "password1", "password2")
 		
 class AuthenticateUserForm(forms.ModelForm):
 	password = forms.CharField(label='Password', widget=forms.PasswordInput)

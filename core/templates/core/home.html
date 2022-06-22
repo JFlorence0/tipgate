@@ -1,19 +1,29 @@
 <!DOCTYPE html>
 <html>
+{% extends 'core/base.html' %}
+{% load bootstrap4 %}
+{% block navbar %}
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>TipGate</title>
 </head>
 <body>
-	<a href="{% url 'core:home' %}">Home</a>
-	{% if user.is_authenticated %}
-	<a href="{% url 'users:logout' %}">Logout</a>
-	{% else %}
-	<a href="{% url 'users:login' %}">Login</a>
-	<a href="{% url 'users:register' %}">Register</a>
-	{% endif %}
-	<p>{{ user.username }}</p>
+	{% endblock navbar %}
+	{% block content %}
+	<p>Logged in as {{ request.user }}</p>
+		{% if request.user.is_venue %}
+			<a href="{% url 'core:venue_form' user.id %}">
+			Register A Venue</a><br>
+			<p>{{ venue. }}</p>
+		{% else %}
+			{% if customer.location %}
+			{% else %}
+				<a href="{% url 'core:customer_location' user.id %}">Choose Location</a>
+			{% endif %}
 
+		{% endif %}
+	{% endblock content %}
 </body>
+
 </html>

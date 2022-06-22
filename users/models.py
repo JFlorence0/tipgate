@@ -6,7 +6,7 @@ import random
 
 # Create your models here.
 class MyAccountManager(BaseUserManager):
-	def create_user(self, email, username, first_name, last_name, password=None):
+	def create_user(self, email, username, first_name, last_name, is_venue, password=None):
 		if not email:
 			raise ValueError("Users must have a valid email.")
 		if not username:
@@ -43,8 +43,6 @@ class MyAccountManager(BaseUserManager):
 
 class Account(AbstractBaseUser):
 	"""Generate vareaze ID"""
-	def venue_num_generator(size=10, chars=string.digits):
-		return ''.join(random.choice(chars) for _ in range(size))
 	email = models.EmailField(verbose_name='email', max_length=60, unique=True)
 	username = models.CharField(max_length=30, unique=True)
 	first_name = models.CharField(max_length=30)
@@ -56,16 +54,10 @@ class Account(AbstractBaseUser):
 	is_admin = models.BooleanField(default=False)
 	is_staff = models.BooleanField(default=False)
 	is_superuser = models.BooleanField(default=False)
-	venue_num = models.CharField(
-		max_length = 10,
-		blank=True,
-		editable=False,
-		unique=True,
-		default=venue_num_generator(),
-		)
+
 
 	USERNAME_FIELD = 'email'
-	REQUIRED_FIELDS = ['username', 'first_name', 'last_name']
+	REQUIRED_FIELDS = ['username', 'first_name', 'last_name', 'is_venue']
 
 	objects = MyAccountManager()
 
