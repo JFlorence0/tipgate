@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+{% extends 'core/base.html' %}
+{% load bootstrap4 %}
+{% block navbar %}
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>{{ customer_location }}</title>
+</head>
+<body>
+{% endblock navbar %}
+{% block content %}
+	{{ customer }}<br>
+	{{ customer_location }}
+
+	{{ venue_name }}<br>
+	{{ venue_num }}<br>
+	{{ venue_address }}<br>
+	{{ venue_city }}
+
+
+{% endblock content %}
+</body>
+</html>

@@ -11,15 +11,28 @@
 <body>
 	{% endblock navbar %}
 	{% block content %}
-	<p>Logged in as {{ request.user }}</p>
-		{% if request.user.is_venue %}
+	<p>Logged in as {{ request.user.email }}</p>
+
+		{% if request.user.is_venue == True %}
 			<a href="{% url 'core:venue_form' user.id %}">
-			Register A Venue</a><br>
-			<p>{{ venue. }}</p>
+			Register A Venue</a><br><br>
+			
+			<p>Alter Menu Items<p>
+			{% for venue in venues %}
+				<a href="">{{ venue }}</a><br>
+			{% empty %}
+			{% endfor %}
+		
 		{% else %}
-			{% if customer.location %}
+
+			{% if customer %}
+				<a href="{% url 'core:venue_page' %}">{{ customer }}</a>
 			{% else %}
-				<a href="{% url 'core:customer_location' user.id %}">Choose Location</a>
+				{% if request.user.is_authenticated %}
+						<a href="{% url 'core:customer_location' user.id %}">Choose Location</a>
+				{% else %}
+				{% endif %}
+
 			{% endif %}
 
 		{% endif %}

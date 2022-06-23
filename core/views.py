@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from users.models import Account
 from .models import Venue, CustomerLocation
+
 from .forms import VenueForm, CustomerLocationForm
 
 # Create your views here.
@@ -10,10 +11,15 @@ def home(request):
 	venue = Venue.objects.all()
 	if venue:
 		venue = venue[0]
-	customer = CustomerLocation.objects.get(id=request.user.id)
-	venues = [venue for venue in Account.objects.all() if venue.is_venue == True]
-	context = {'user':user, 'venues':venues, 'venue':venue, 'customer':customer}
+	venues = [venue.venue_name for venue in Venue.objects.all() if str(venue.owner) == str(request.user.email)]
+	if request.user != 'AnonymousUser':
+		customer = [cust.location for cust in CustomerLocation.objects.all() if str(cust.customer) == str(request.user.email)]
+	if customer:
+		context = {'user':user, 'venues':venues, 'venue':venue, 'customer':customer[0]}
+	else:
+		context = {'user':user, 'venues':venues, 'venue':venue}
 	return render(request, 'core/home.html', context)
+
 
 def venue_form(request, user_id):
 	user = Account.objects.get(id=user_id)
@@ -33,10 +39,10 @@ def venue_form(request, user_id):
 			venue.save()
 			return redirect('core:home')
 	
-
 	context = {'user':user, 'form':form}
 	return render(request, 'core/venue_form.html', context)
 	
+
 def customer_location(request, user_id):
 	user = Account.objects.get(id=user_id)
 
@@ -53,9 +59,24 @@ def customer_location(request, user_id):
 			customer_location = form.save(commit=False)
 			customer_location.customer = user
 			customer_location.save()
-			return redirect('core:home')
+			return redirect('core:venue_page')
 	
-
 	context = {'user':user, 'form':form}
 	return render(request, 'core/customer_location.html', context)
+
+# Customer View of the venue's page
+def venue_page(request):
+	user = Account.objects.get(id=request.user.id)
+	if request.user != 'AnonymousUser':
+		customer = [cust for cust in CustomerLocation.objects.all() if str(cust.customer) == str(request.user.email)]
+	customer_location = customer[0].location
+	context = {'customer':customer, 'customer_location':customer_location}
+	return render(request, 'core/venue_page.html', context)
+
+
+
+
+
+
+
 

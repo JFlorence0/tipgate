@@ -42,7 +42,7 @@ class MyAccountManager(BaseUserManager):
 
 
 class Account(AbstractBaseUser):
-	"""Generate vareaze ID"""
+	""" Customize user class """
 	email = models.EmailField(verbose_name='email', max_length=60, unique=True)
 	username = models.CharField(max_length=30, unique=True)
 	first_name = models.CharField(max_length=30)
