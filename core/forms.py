@@ -1,5 +1,5 @@
 from django import forms
-from .models import Venue, CustomerLocation
+from .models import Venue, CustomerLocation, Menu
 
 class VenueForm(forms.ModelForm):
 
@@ -12,3 +12,9 @@ class CustomerLocationForm(forms.ModelForm):
 	class Meta:
 		model = CustomerLocation
 		fields = ('location',)
+
+class MenuForm(forms.ModelForm):
+
+	class Meta:
+		model = Menu
+		fields = ('menu_owner',)

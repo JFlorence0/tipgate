@@ -13,6 +13,8 @@ urlpatterns = [
 	# Customer venue choice
 	path('customer_location/<int:user_id>', views.customer_location, name='customer_location'),
 	# Venue home page
-	path('venue_page/', views.venue_page, name='venue_page'),
+	path('venue_page/<int:user_id>/', views.venue_page, name='venue_page'),
+	# Build Menu Page
+	path('build_menu/<int:user_id>/', views.build_menu, name='build_menu'),
 	
 ]

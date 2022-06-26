@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+{% extends 'core/base.html' %}
+{% load bootstrap4 %}
+{% block navbar %}
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title></title>
+</head>
+<body>
+{% endblock navbar %}
+{% block content %}
+
+	<form action="{% url 'core:menu_items' user.id %}" method="post">
+		{% csrf_token %}
+		{{ form.as_p }}
+		
+		<button name='submit'>Submit</button>
+		
+	</form>
+
+
+{% endblock content %}
+</body>
+</html>
