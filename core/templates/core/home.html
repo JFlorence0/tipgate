@@ -21,8 +21,14 @@
 			
 			<!--If the venue has a menu -->
 			{% if menu %}
-			<p>Alter Menu Items<p>
-				<p>Link to add menu items</p>
+			<h4>View {{ venue_name }} Menu</h4><br>
+			<a href="{% url 'core:venue_menu_view' user.id %}">Menu</a><br><br>
+
+				<h4>Alter Menu Items</h4>
+
+					<a href="{% url 'core:add_main_course' user.id %}">Add a main course</a><br>
+					<a href="{% url 'core:add_side_dish' user.id %}">Add a side dish</a><br>
+					<a href="{% url 'core:add_drink' user.id %}">Add a drink</a><br>
 
 			<!--If the venue does not have a menu -->
 			{% else %}

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+{% extends 'core/base.html' %}
+{% load bootstrap4 %}
+{% block navbar %}
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title></title>
+</head>
+<body>
+{% endblock navbar %}
+{% block content %}
+<h4>Entree's</h4><br>
+{% for entree in entrees %}
+	{{ entree }}<br>
+{% empty %}
+{% endfor %}
+
+
+<br><h4>Sides</h4><br>
+{% for side in sides %}
+	{{ side }}<br>
+{% empty %}
+{% endfor %}
+
+<br><h4>Drinks</h4><br>
+{% for drink in drinks %}
+	{{ drink }}<br>
+{% empty %}
+{% endfor %}
+
+
+
+{% endblock content %}
+</body>
+</html>

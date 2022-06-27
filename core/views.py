@@ -1,8 +1,8 @@
 from django.shortcuts import render, redirect
 from users.models import Account
-from .models import Venue, CustomerLocation, Menu
+from .models import Venue, CustomerLocation, Menu, MainCourse, SideDish, Drink
 
-from .forms import VenueForm, CustomerLocationForm, MenuForm
+from .forms import VenueForm, CustomerLocationForm, MenuForm, MainCourseForm, SideDishForm, DrinkForm
 
 # Create your views here.
 def home(request):
@@ -19,7 +19,7 @@ def home(request):
 			venues = [venue for venue in Venue.objects.all() if str(venue.owner) == str(request.user.email)]
 			context = {'user':user, 'venues':venues}
 			# Check if venue has a menu
-			menu = [print(menu.menu_owner.venue_name) for menu in Menu.objects.all() if str(menu.menu_owner.owner) == str(request.user.email)]
+			menu = [menu for menu in Menu.objects.all() if str(menu.menu_owner.owner) == str(request.user.email)]
 			if len(menu) > 0:
 				context = {'user':user, 'venues':venues, 'menu':menu}
 
@@ -107,14 +107,94 @@ def build_menu(request, user_id):
 	context = {'user':user, 'venue_instance':venue_instance, 'form':form}
 	return render(request, 'core/build_menu.html', context)
 
-def menu_items(request, user_id):
-	user = Account.objects.get(user_id)
-	context = {'user':user}
-	return render(request, 'core/menu_items.html')
+# Menu view from the venue's POV
+def venue_menu_view(request, user_id):
+	user = Account.objects.get(id=user_id)
+	entrees = [entree for entree in MainCourse.objects.all() if str(entree.menu.menu_owner.owner) == str(request.user.email)]
+	sides = [side for side in SideDish.objects.all() if str(side.menu.menu_owner.owner) == str(request.user.email)]
+	drinks = [drink for drink in Drink.objects.all() if str(drink.menu.menu_owner.owner) == str(request.user.email)]
+	context = {'user':user, 'entrees':entrees, 'sides':sides, 'drinks':drinks}
+	return render(request, 'core/venue_menu_view.html', context)
 
 
+def add_main_course(request, user_id):
+	user = Account.objects.get(id=user_id)
+	menu_instance = [menu for menu in Menu.objects.all() if str(menu.menu_owner.owner) == str(request.user.email)]
+	menu_instance = menu_instance[0]
+
+	if request.method != 'POST':
+		# No data submitted; create a blank form.
+		form = MainCourseForm()
+	else:
+		# POST data submitted; process data.
+		form = MainCourseForm(data=request.POST)
+		if form.is_valid():
+			main_course = form.save(commit=False)
+			main_course.menu = menu_instance
+			main_course.save()
+			return redirect('core:add_main_course', user_id)
+	context = {'user':user, 'form':form}
+	return render(request, 'core/add_main_course.html', context)
 
 
+def add_side_dish(request, user_id):
+	user = Account.objects.get(id=user_id)
+	menu_instance = [menu for menu in Menu.objects.all() if str(menu.menu_owner.owner) == str(request.user.email)]
+	menu_instance = menu_instance[0]
+
+	if request.method != 'POST':
+		# No data submitted; create a blank form.
+		form = SideDishForm()
+	else:
+		# POST data submitted; process data.
+		form = SideDishForm(data=request.POST)
+		if form.is_valid():
+			side_dish = form.save(commit=False)
+			side_dish.menu = menu_instance
+			side_dish.save()
+			return redirect('core:add_side_dish', user_id)
+	context = {'user':user, 'form':form}
+	return render(request, 'core/add_side_dish.html', context)
+
+
+def add_drink(request, user_id):
+	user = Account.objects.get(id=user_id)
+	menu_instance = [menu for menu in Menu.objects.all() if str(menu.menu_owner.owner) == str(request.user.email)]
+	menu_instance = menu_instance[0]
+
+	if request.method != 'POST':
+		# No data submitted; create a blank form.
+		form = DrinkForm()
+	else:
+		# POST data submitted; process data.
+		form = DrinkForm(data=request.POST)
+		if form.is_valid():
+			drink = form.save(commit=False)
+			drink.menu = menu_instance
+			drink.save()
+			return redirect('core:add_drink', user_id)
+	context = {'user':user, 'form':form}
+	return render(request, 'core/add_drink.html', context)
+
+
+def add_main_course_ingredient(request, user_id):
+	user = Account.objects.get(id=user_id)
+	ingredient_instance = [ingredient for ingredient in MainCourse.objects.all()]
+	ingredient_instance = ingredient_instance[0]
+
+	if request.method != 'POST':
+		# No data submitted; create a blank form.
+		form = MainCourseIngredientForm()
+	else:
+		# POST data submitted; process data.
+		form = MainCourseIngredientForm(data=request.POST)
+		if form.is_valid():
+			ingredient = form.save(commit=False)
+			ingredient.item = menu_instance
+			ingredient.save()
+			return redirect('core:add_main_course_ingredient', user_id)
+	context = {'user':user, 'form':form}
+	return render(request, 'core/add_main_course_ingredient.html', context)
 
 
 

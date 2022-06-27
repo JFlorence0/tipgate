@@ -12,10 +12,9 @@
 {% endblock navbar %}
 {% block content %}
 
-	<form action="{% url 'core:menu_items' user.id %}" method="post">
+	<form action="{% url 'core:add_drink' user.id %}" method="post">
 		{% csrf_token %}
 		{{ form.as_p }}
-		
 		<button name='submit'>Submit</button>
 		
 	</form>
