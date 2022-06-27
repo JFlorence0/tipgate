@@ -11,8 +11,8 @@
 <body>
 {% endblock navbar %}
 {% block content %}
-<small><a href="{% url 'core:home' %}">->Back</a></small>
-	<form action="{% url 'core:add_drink' user.id %}" method="post">
+<small><a href="{% url 'core:venue_menu_view' user.id %}">->Back</a></small>
+	<form action="{% url 'core:add_side_dish_ingredient' user.id %}" method="post">
 		{% csrf_token %}
 		{{ form.as_p }}
 		<button name='submit'>Submit</button>

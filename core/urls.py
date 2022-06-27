@@ -26,6 +26,11 @@ urlpatterns = [
 	path('add_side_dish/<int:user_id>/', views.add_side_dish, name='add_side_dish'),
 	# Add a drink to the menu
 	path('add_drink/<int:user_id>/', views.add_drink, name='add_drink'),
+	
 	# Add an ingredient to the main course
 	path('add_main_course_ingredient/<int:user_id>/', views.add_main_course_ingredient, name='add_main_course_ingredient'),
+	# Add an ingredient to the main course
+	path('add_side_dish_ingredient/<int:user_id>/', views.add_side_dish_ingredient, name='add_side_dish_ingredient'),
+	# Add an ingredient to the main course
+	path('add_drink_ingredient/<int:user_id>/', views.add_drink_ingredient, name='add_drink_ingredient'),
 ]

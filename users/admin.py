@@ -2,6 +2,7 @@ from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 from .models import Account
 from core.models import Venue, CustomerLocation, Menu, MainCourse, SideDish, Drink
+from core.models import MainCourseIngredient, SideDishIngredient, DrinkIngredient
 
 # Register your models here.
 class AccountAdmin(UserAdmin):
@@ -20,3 +21,6 @@ admin.site.register(Menu)
 admin.site.register(MainCourse)
 admin.site.register(SideDish)
 admin.site.register(Drink)
+admin.site.register(MainCourseIngredient)
+admin.site.register(SideDishIngredient)
+admin.site.register(DrinkIngredient)

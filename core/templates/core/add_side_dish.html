@@ -11,6 +11,7 @@
 <body>
 {% endblock navbar %}
 {% block content %}
+<small><a href="{% url 'core:home' %}">->Back</a></small>
 
 	<form action="{% url 'core:add_side_dish' user.id %}" method="post">
 		{% csrf_token %}
