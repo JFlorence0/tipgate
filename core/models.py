@@ -59,7 +59,7 @@ class Drink(models.Model):
 class MainCourseIngredient(models.Model):
 	item = models.ForeignKey(MainCourse, on_delete=models.CASCADE)
 	ingredient = models.CharField(max_length=30)
-	note_about_ingredient = models.CharField(max_length=100)
+	note_about_ingredient = models.CharField(max_length=100, null=True, blank=True)
 
 	def __str__(self):
 		return f"{self.ingredient}"
@@ -67,7 +67,7 @@ class MainCourseIngredient(models.Model):
 class SideDishIngredient(models.Model):
 	item = models.ForeignKey(SideDish, on_delete=models.CASCADE)
 	ingredient = models.CharField(max_length=30)
-	note_about_ingredient = models.CharField(max_length=100)
+	note_about_ingredient = models.CharField(max_length=100, null=True, blank=True)
 
 	def __str__(self):
 		return f"{self.ingredient}"
@@ -75,7 +75,7 @@ class SideDishIngredient(models.Model):
 class DrinkIngredient(models.Model):
 	item = models.ForeignKey(Drink, on_delete=models.CASCADE)
 	ingredient = models.CharField(max_length=30)
-	note_about_ingredient = models.CharField(max_length=100, null=True)
+	note_about_ingredient = models.CharField(max_length=100, null=True, blank=True)
 
 	def __str__(self):
 		return f"{self.ingredient}"

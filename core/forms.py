@@ -38,18 +38,21 @@ class DrinkForm(forms.ModelForm):
 		fields = ('name', 'description')
 
 class MainCourseIngredientForm(forms.ModelForm):
+	note_about_ingredient = forms.CharField(required=False)
 
 	class Meta:
 		model = MainCourseIngredient
 		fields = ('ingredient', 'note_about_ingredient')
 
 class SideDishIngredientForm(forms.ModelForm):
+	note_about_ingredient = forms.CharField(required=False)
 
 	class Meta:
 		model = SideDishIngredient
 		fields = ('ingredient', 'note_about_ingredient')
 
 class DrinkIngredientForm(forms.ModelForm):
+	note_about_ingredient = forms.CharField(required=False)
 
 	class Meta:
 		model = DrinkIngredient

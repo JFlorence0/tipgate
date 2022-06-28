@@ -14,8 +14,12 @@ urlpatterns = [
 	
 	# Add a venue to an owner
 	path('venue_form/<int:user_id>/', views.venue_form, name='venue_form'),
+	
 	# Customer venue choice
 	path('customer_location/<int:user_id>', views.customer_location, name='customer_location'),
+	# Customer update current venue 
+	path('update_customer_location/<int:user_id>/', views.update_customer_location, name='update_customer_location'),
+
 	# Venue home page
 	path('venue_page/<int:user_id>/', views.venue_page, name='venue_page'),
 	# Build Menu Page

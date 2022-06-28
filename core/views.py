@@ -80,6 +80,24 @@ def customer_location(request, user_id):
 	context = {'user':user, 'form':form}
 	return render(request, 'core/customer_location.html', context)
 
+# Update customer location if they already have one
+def update_customer_location(request, user_id):
+	user = Account.objects.get(id=user_id)
+	customer_location = [cust for cust in CustomerLocation.objects.all() if str(cust.customer) == str(request.user.email)]
+	customer_location = customer_location[0]
+
+	if request.method != 'POST':
+		# No data submitted; create a blank form.
+		form = CustomerLocationForm(instance=customer_location)
+	else:
+		# POST data submitted; process data.
+		form = CustomerLocationForm(instance=customer_location, data=request.POST)
+		if form.is_valid():
+			customer_location.save()
+			return redirect('core:home')
+	context = {'user':user,'form':form, 'customer_location':customer_location}
+	return render(request, 'core/update_customer_location.html', context)
+
 
 # Customer View of the venue's page
 def venue_page(request, user_id):
