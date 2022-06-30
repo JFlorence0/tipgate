@@ -1,4 +1,4 @@
-"""Defines URL patterns for vareaze."""
+"""Defines URL patterns for tip_gate."""
 
 from django.urls import path, include
 
