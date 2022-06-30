@@ -48,6 +48,7 @@ class Account(AbstractBaseUser):
 	first_name = models.CharField(max_length=30)
 	last_name = models.CharField(max_length=30)
 	is_venue = models.BooleanField(default=False)
+	is_server = models.BooleanField(default=False)
 	date_joined = models.DateTimeField(verbose_name='date_joined', auto_now_add=True)
 	last_login = models.DateTimeField(verbose_name='last_login', auto_now_add=True)
 	is_active = models.BooleanField(default=True)

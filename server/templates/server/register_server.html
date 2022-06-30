@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+{% extends 'server/base_server.html' %}
+{% load bootstrap4 %}
+{% block navbar %}
+<head>
+	<title>Register</title>
+</head>
+<body>
+	<small><a href="{% url 'server:home_server' %}">->Back</a></small>
+	{% endblock navbar %}
+	{% block content %}
+	<h2>Register Server</h2>
+	<form method="post">
+		{% csrf_token %}
+		{% for field in server_registration_form %}
+		<p>
+			{{ field.label_tag }}
+				{{ field }}
+			{% if field.help_text %}
+				<small style="color:  grey;">{{ field.help_text }}</small>
+			{% endif %}
+
+			{% for error in field.errors %}
+				<p style="color: red;">{{ error }}</p>
+			{% endfor %}
+			{% endfor %}
+		</p>
+		<button type="submit">Create Server Account</button>
+	</form>
+	{% endblock content %}
+</body>
+</html>
