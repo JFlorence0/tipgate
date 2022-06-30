@@ -80,3 +80,16 @@ class DrinkIngredient(models.Model):
 	def __str__(self):
 		return f"{self.ingredient}"
 
+class ServerLocation(models.Model):
+	VENUE_CHOICES = tuple([(venue.venue_name,venue.venue_name) for venue in Venue.objects.all()])
+	server = models.OneToOneField(Account, on_delete=models.CASCADE)
+	location = models.CharField(max_length=100, choices=VENUE_CHOICES)
+
+
+
+
+
+
+
+
+
