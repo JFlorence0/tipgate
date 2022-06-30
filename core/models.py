@@ -85,6 +85,9 @@ class ServerLocation(models.Model):
 	server = models.OneToOneField(Account, on_delete=models.CASCADE)
 	location = models.CharField(max_length=100, choices=VENUE_CHOICES)
 
+	def __str__(self):
+		return f"{self.location}"
+
 
 
 

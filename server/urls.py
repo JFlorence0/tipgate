@@ -13,5 +13,10 @@ urlpatterns = [
 	# Server Login page
 	path('authenticate_server/', views.authenticate_server, name='authenticate_server'),
 	# Logout Server
-	path('logged_out', views.logged_out, name='logged_out'),
+	path('logged_out/', views.logged_out, name='logged_out'),
+
+	# Server Location Form
+	path('server_location/<int:user_id>/', views.server_location, name='server_location'),
+	# Server Dashboard Page
+	path('server_dashboard/<int:user_id>/', views.server_dashboard, name='server_dashboard'),
 	]

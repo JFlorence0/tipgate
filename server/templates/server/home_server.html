@@ -12,6 +12,15 @@
 	{% endblock navbar %}
 	{% block content %}
 	<p>Logged In as {{ user }}</p>
+	{% if user.is_server %}
+		{% if server_location %}
+			{{ server_location }}
+		{% else %}
+			<a href="{% url 'server:server_location' user.id %}">Server request location</a>
+		{% endif %}
+	{% else %}
+		<p>This part of TipGate is for servers only. Are you looking for <a href="{% url 'core:home' %}">TipGate</a></p>
+	{% endif %}
 
 	{% endblock content %}
 </body>
