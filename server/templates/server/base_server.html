@@ -11,7 +11,7 @@
 <body>
 	<nav class="navbar navbar-expand-md navbar-dark bg-primary mb-4 border">
 	
-	<a class="navbar-brand text-light" href="{% url 'core:home' %}"><img src="" width="30" height="30" alt=""><b></b></a>
+	<a class="navbar-brand text-light" href="{% url 'server:home_server' %}"><img src="" width="30" height="30" alt=""><b></b></a>
 	<button class="navbar-toggler" type="button" data-toggle="collapse"
 	data-target="#navbarCollapse" aria-controls="navbarCollapse"
 	aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
@@ -21,14 +21,14 @@
 		<ul class="navbar-nav ml-auto">
 			{% if user.is_authenticated %}
 				<li class="nav-item">
-					<a class="nav-link text-light" href="{% url 'users:logout' %}"><b>Log out</b></a>
+					<a class="nav-link text-light" href="{% url 'server:logged_out' %}"><b>Log out</b></a>
 				</li>
 			{% else %}
 				<li class="nav-item text-light">
 					<a class="nav-link" href="{% url 'server:register_server' %}"><b>Register</b></a>
 				</li>
 				<li class="nav-item text-light">
-					<a class="nav-link" href="{% url 'users:login' %}">Log in</a>
+					<a class="nav-link" href="{% url 'server:authenticate_server' %}">Log in</a>
 				</li>
 			{% endif %}
 		</ul>

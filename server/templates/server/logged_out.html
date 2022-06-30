@@ -6,14 +6,13 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>TipGate</title>
+	<title></title>
 </head>
 <body>
+<small><a href="{% url 'server:home_server' %}">->Back</a></small>
 	{% endblock navbar %}
 	{% block content %}
-	<p>Logged In as {{ user }}</p>
-
+		<p>You have been logged out. Thanks for Visiting TipGate</p>
 	{% endblock content %}
 </body>
-
 </html>
