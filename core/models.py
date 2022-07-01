@@ -88,6 +88,17 @@ class ServerLocation(models.Model):
 	def __str__(self):
 		return f"{self.location}"
 
+class CustomerOrder(models.Model):
+	VENUE_CHOICES = tuple([(venue.venue_name,venue.venue_name) for venue in Venue.objects.all()])
+	ENTREE_CHOICES = tuple([(entree.name,entree.name) for entree in MainCourse.objects.all()])
+	SIDE_CHOICES = tuple([(side.name,side.name) for side in SideDish.objects.all()])
+	DRINK_CHOICES = tuple([(drink.name,drink.name) for drink in Drink.objects.all()])
+	customer = models.ForeignKey(Account, on_delete = models.CASCADE)
+	venue = models.CharField(max_length=100, choices = VENUE_CHOICES)
+	entree = models.CharField(max_length=100, choices = ENTREE_CHOICES, null=True)
+	side = models.CharField(max_length=100, choices= SIDE_CHOICES, null=True)
+	drink = models.CharField(max_length=100, choices= DRINK_CHOICES, null=True)
+
 
 
 
