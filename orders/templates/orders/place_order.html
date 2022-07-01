@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+{% extends 'core/base.html' %}
+{% load bootstrap4 %}
+{% block navbar %}
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Order</title>
+</head>
+<body>
+<small><a href="{% url 'core:home' %}">->Back</a></small>
+{% endblock navbar %}
+{% block content %}
+<p><b>Place an order from {{ customer_location }}</b></p>
+
+{% endblock content %}
+</body>
+</html>

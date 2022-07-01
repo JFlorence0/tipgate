@@ -35,6 +35,7 @@ INSTALLED_APPS = [
     'core',
     'users',
     'server',
+    'orders',
 
     # Third Party Apps
     'bootstrap4',

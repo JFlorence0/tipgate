@@ -45,7 +45,7 @@
 
 			{{ customer_location }}<br>
 				<a href="{% url 'core:update_customer_location' user.id %}">Update Location</a><br>
-				<a href="">Place an order</a>
+				<a href="{% url 'orders:place_order' user.id %}">Place an order</a>
 			{% else %}
 				<a href="{% url 'core:customer_location' user.id %}">Choose Location</a>
 			{% endif %}
