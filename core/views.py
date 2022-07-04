@@ -11,12 +11,11 @@ from .forms import MainCourseIngredientForm, SideDishIngredientForm, DrinkIngred
 def home(request):
 	""" Display the home page """
 	user = request.user
-	if user.is_server:
-		return redirect('server:home_server')
-
 	# User is not logged in
 	if str(request.user) == 'AnonymousUser':
 		context = {'user':user}
+
+
 	# User is logged in
 	else:
 		# User is a venue
@@ -30,6 +29,8 @@ def home(request):
 
 		# User is a customer
 		else:
+			if user.is_server:
+				return redirect('server:home_server')
 			customer_location = [cust.location for cust in CustomerLocation.objects.all() if str(cust.customer) == str(request.user.email)]
 			# Check if the user has entered a location
 			if len(customer_location) > 0:
