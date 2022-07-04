@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+{% extends 'server/base_server.html' %}
+{% load bootstrap4 %}
+{% block navbar %}
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title></title>
+</head>
+<body>
+{% endblock navbar %}
+{% block content %}
+<p>Customer: {{ request.user.first_name }} {{ request.user.last_name }} <br> 
+Order No.
+{% for id in order_id %}
+	{{ id }}
+{% empty %}
+{% endfor %}
+Order:<br>
+
+<a href="{% url 'orders:edit_entree' user.id %}">{{ entree }}</a><br>
+
+
+
+{{ side }}<br>
+{{ drink }}
+</p>
+
+
+{% endblock content %}
+</body>
+</html>

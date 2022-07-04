@@ -11,6 +11,8 @@ from .forms import MainCourseIngredientForm, SideDishIngredientForm, DrinkIngred
 def home(request):
 	""" Display the home page """
 	user = request.user
+	if user.is_server:
+		return redirect('server:home_server')
 
 	# User is not logged in
 	if str(request.user) == 'AnonymousUser':

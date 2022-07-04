@@ -98,6 +98,11 @@ class CustomerOrder(models.Model):
 	entree = models.CharField(max_length=100, choices = ENTREE_CHOICES, null=True)
 	side = models.CharField(max_length=100, choices= SIDE_CHOICES, null=True)
 	drink = models.CharField(max_length=100, choices= DRINK_CHOICES, null=True)
+	date_added = models.DateTimeField(auto_now_add=True, blank=True)
+
+	def __str__(self):
+		return f"{self.entree}, {self.side}, {self.drink}"
+
 
 
 

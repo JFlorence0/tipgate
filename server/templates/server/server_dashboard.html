@@ -12,6 +12,13 @@
 	{% endblock navbar %}
 	{% block content %}
 	Display current customer orders
+	<ol>
+	{% for order in customer_orders %}
+		<li>{{ order }}</li>
+	</ol>
+	{% empty %}
+	<p>No open Orders</p>
+	{% endfor %}
 
 	{% endblock content %}
 </body>

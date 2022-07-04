@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import login, authenticate, logout
 from .forms import ServerRegistrationForm, AuthenticateServerForm, ServerLocationForm
 
-from core.models import ServerLocation
+from core.models import ServerLocation, CustomerOrder
 from users.models import Account
 
 # Create your views here.
@@ -89,7 +89,8 @@ def server_location(request, user_id):
 
 def server_dashboard(request, user_id):
 	user = Account.objects.get(id=user_id)
-	context = {'user':user}
+	customer_orders = [order for order in CustomerOrder.objects.all()]
+	context = {'user':user, 'customer_orders':customer_orders}
 	return render(request, 'server/server_dashboard.html', context)
 
 
