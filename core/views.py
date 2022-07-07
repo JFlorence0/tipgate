@@ -2,10 +2,8 @@ from django.shortcuts import render, redirect
 from users.models import Account
 
 from .models import Venue, CustomerLocation, Menu, MainCourse, SideDish, Drink
-from .models import MainCourseIngredient, SideDishIngredient, DrinkIngredient
 
 from .forms import VenueForm, CustomerLocationForm, MenuForm, MainCourseForm, SideDishForm, DrinkForm
-from .forms import MainCourseIngredientForm, SideDishIngredientForm, DrinkIngredientForm
 
 # Create your views here.
 def home(request):
@@ -201,62 +199,6 @@ def add_drink(request, user_id):
 	return render(request, 'core/add_drink.html', context)
 
 
-def add_main_course_ingredient(request, user_id):
-	user = Account.objects.get(id=user_id)
-	ingredient_instance = [ingredient for ingredient in MainCourse.objects.all() if str(ingredient.menu.menu_owner.owner) == str(request.user.email)]
-	ingredient_instance = ingredient_instance[0]
-
-	if request.method != 'POST':
-		# No data submitted; create a blank form.
-		form = MainCourseIngredientForm()
-	else:
-		# POST data submitted; process data.
-		form = MainCourseIngredientForm(data=request.POST)
-		if form.is_valid():
-			ingredient = form.save(commit=False)
-			ingredient.item = ingredient_instance
-			ingredient.save()
-			return redirect('core:add_main_course_ingredient', user_id)
-	context = {'user':user, 'form':form}
-	return render(request, 'core/add_main_course_ingredient.html', context)
-
-def add_side_dish_ingredient(request, user_id):
-	user = Account.objects.get(id=user_id)
-	ingredient_instance = [ingredient for ingredient in SideDish.objects.all() if str(ingredient.menu.menu_owner.owner) == str(request.user.email)]
-	ingredient_instance = ingredient_instance[0]
-
-	if request.method != 'POST':
-		# No data submitted; create a blank form.
-		form = SideDishIngredientForm()
-	else:
-		# POST data submitted; process data.
-		form = SideDishIngredientForm(data=request.POST)
-		if form.is_valid():
-			ingredient = form.save(commit=False)
-			ingredient.item = ingredient_instance
-			ingredient.save()
-			return redirect('core:add_side_dish_ingredient', user_id)
-	context = {'user':user, 'form':form}
-	return render(request, 'core/add_side_dish_ingredient.html', context)
-
-def add_drink_ingredient(request, user_id):
-	user = Account.objects.get(id=user_id)
-	ingredient_instance = [ingredient for ingredient in Drink.objects.all() if str(ingredient.menu.menu_owner.owner) == str(request.user.email)]
-	ingredient_instance = ingredient_instance[0]
-
-	if request.method != 'POST':
-		# No data submitted; create a blank form.
-		form = DrinkIngredientForm()
-	else:
-		# POST data submitted; process data.
-		form = DrinkIngredientForm(data=request.POST)
-		if form.is_valid():
-			ingredient = form.save(commit=False)
-			ingredient.item = ingredient_instance
-			ingredient.save()
-			return redirect('core:add_drink_ingredient', user_id)
-	context = {'user':user, 'form':form}
-	return render(request, 'core/add_drink_ingredient.html', context)
 
 
 

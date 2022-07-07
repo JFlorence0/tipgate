@@ -56,29 +56,7 @@ class Drink(models.Model):
 	def __str__(self):
 		return f"{self.name}"
 
-class MainCourseIngredient(models.Model):
-	item = models.ForeignKey(MainCourse, on_delete=models.CASCADE)
-	ingredient = models.CharField(max_length=30)
-	note_about_ingredient = models.CharField(max_length=100, null=True, blank=True)
 
-	def __str__(self):
-		return f"{self.ingredient}"
-
-class SideDishIngredient(models.Model):
-	item = models.ForeignKey(SideDish, on_delete=models.CASCADE)
-	ingredient = models.CharField(max_length=30)
-	note_about_ingredient = models.CharField(max_length=100, null=True, blank=True)
-
-	def __str__(self):
-		return f"{self.ingredient}"
-
-class DrinkIngredient(models.Model):
-	item = models.ForeignKey(Drink, on_delete=models.CASCADE)
-	ingredient = models.CharField(max_length=30)
-	note_about_ingredient = models.CharField(max_length=100, null=True, blank=True)
-
-	def __str__(self):
-		return f"{self.ingredient}"
 
 class ServerLocation(models.Model):
 	VENUE_CHOICES = tuple([(venue.venue_name,venue.venue_name) for venue in Venue.objects.all()])

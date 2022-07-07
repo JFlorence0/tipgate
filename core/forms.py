@@ -1,6 +1,5 @@
 from django import forms
 from .models import Venue, CustomerLocation, Menu, MainCourse, SideDish, Drink
-from .models import MainCourseIngredient, SideDishIngredient, DrinkIngredient
 
 class VenueForm(forms.ModelForm):
 
@@ -37,26 +36,7 @@ class DrinkForm(forms.ModelForm):
 		model = Drink
 		fields = ('name', 'description')
 
-class MainCourseIngredientForm(forms.ModelForm):
-	note_about_ingredient = forms.CharField(required=False)
 
-	class Meta:
-		model = MainCourseIngredient
-		fields = ('ingredient', 'note_about_ingredient')
-
-class SideDishIngredientForm(forms.ModelForm):
-	note_about_ingredient = forms.CharField(required=False)
-
-	class Meta:
-		model = SideDishIngredient
-		fields = ('ingredient', 'note_about_ingredient')
-
-class DrinkIngredientForm(forms.ModelForm):
-	note_about_ingredient = forms.CharField(required=False)
-
-	class Meta:
-		model = DrinkIngredient
-		fields = ('ingredient', 'note_about_ingredient')
 
 
 

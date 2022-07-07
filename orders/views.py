@@ -2,7 +2,6 @@ from django.shortcuts import render, redirect
 
 from users.models import Account
 from core.models import CustomerLocation, CustomerOrder, MainCourse, Venue
-from core.models import MainCourseIngredient, SideDishIngredient, DrinkIngredient
 
 from .forms import CustomerOrderForm
 
