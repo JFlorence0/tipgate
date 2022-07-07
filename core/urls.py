@@ -26,9 +26,5 @@ urlpatterns = [
 	path('build_menu/<int:user_id>/', views.build_menu, name='build_menu'),
 	# Add a main course to the menu
 	path('add_main_course/<int:user_id>/', views.add_main_course, name='add_main_course'),
-	# Add a side dish to the menu
-	path('add_side_dish/<int:user_id>/', views.add_side_dish, name='add_side_dish'),
-	# Add a drink to the menu
-	path('add_drink/<int:user_id>/', views.add_drink, name='add_drink'),
 
 ]

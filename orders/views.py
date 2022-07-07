@@ -1,9 +1,8 @@
 from django.shortcuts import render, redirect
 
 from users.models import Account
-from core.models import CustomerLocation, CustomerOrder, MainCourse, Venue
+from core.models import CustomerLocation, CustomerOrder, Venue
 
-from .forms import CustomerOrderForm
 
 # Create your views here.
 def place_order(request, user_id):

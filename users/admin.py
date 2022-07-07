@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 from .models import Account
-from core.models import Venue, CustomerLocation, Menu, MainCourse, SideDish, Drink
+from core.models import Venue, CustomerLocation, Menu
 from core.models import ServerLocation
 
 # Register your models here.
@@ -18,7 +18,4 @@ admin.site.register(Account, AccountAdmin)
 admin.site.register(Venue)
 admin.site.register(CustomerLocation)
 admin.site.register(Menu)
-admin.site.register(MainCourse)
-admin.site.register(SideDish)
-admin.site.register(Drink)
 admin.site.register(ServerLocation)

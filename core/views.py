@@ -1,10 +1,9 @@
 from django.shortcuts import render, redirect
 from users.models import Account
 
-from .models import Venue, CustomerLocation, Menu, MainCourse, SideDish, Drink
+from .models import Venue, CustomerLocation, Menu
 
-from .forms import VenueForm, CustomerLocationForm, MenuForm, MainCourseForm, SideDishForm, DrinkForm
-
+from .forms import VenueForm, CustomerLocationForm, MenuForm
 # Create your views here.
 def home(request):
 	""" Display the home page """
