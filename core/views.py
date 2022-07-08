@@ -171,7 +171,10 @@ def add_main_course_video(request, user_id):
 
 def entree_view(request, entree_id):
 	entree = MainCourse.objects.get(id=entree_id)
-	context = {'entree':entree}
+	video = [item.video for item in MainCourseVideo.objects.all() if str(item.main_course_item.name) == str(entree)]
+	if video:
+		video = video[0]
+	context = {'entree':entree, 'video':video}
 	return render(request, 'core/entree_view.html', context)
 
 

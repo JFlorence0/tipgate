@@ -12,7 +12,26 @@
 <small><a href="{% url 'core:home' %}">->Back</a></small>
 {% endblock navbar %}
 {% block content %}
-{{ entrees.ingredient1 }}
+<p><b>Entree Name: {{ entree.name }}</b></p>
+{% if video %}
+	<b>Video:</b><br>
+	<video width='400' controls>
+	<source src='{{ MEDIA_URL }}{{ video }}' type='video/mp4'>
+	Your browser does not support the video tag.
+	</video>
+{% else %}
+{% endif %}
+<p>{{ entree.ingredient1 }}</p><br>
+<p>{{ entree.ingredient2 }}</p><br>
+<p>{{ entree.ingredient3 }}</p><br>
+<p>{{ entree.ingredient4 }}</p><br>
+<p>{{ entree.ingredient5 }}</p><br>
+<p>{{ entree.ingredient6 }}</p><br>
+<p>{{ entree.ingredient7 }}</p><br>
+<p>{{ entree.ingredient8 }}</p><br>
+<p>{{ entree.ingredient9 }}</p><br>
+<p>{{ entree.ingredient10 }}</p><br>
+
 {% endblock content %}
 </body>
 </html>

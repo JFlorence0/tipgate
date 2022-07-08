@@ -9,7 +9,7 @@
 	<title>Video</title>
 </head>
 <body>
-<small><a href="{% url 'core:home' %}">->Back</a></small>
+<small><a href="{% url 'core:venue_menu_view' user.id %}">->Back</a></small>
 {% endblock navbar %}
 {% block content %}
 {{ main_course_item }}
