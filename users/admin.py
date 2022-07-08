@@ -1,8 +1,8 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 from .models import Account
-from core.models import Venue, CustomerLocation, Menu
-from core.models import ServerLocation
+from core.models import Venue, CustomerLocation, Menu, MainCourse
+from core.models import ServerLocation, MainCourseVideo
 
 # Register your models here.
 class AccountAdmin(UserAdmin):
@@ -19,3 +19,5 @@ admin.site.register(Venue)
 admin.site.register(CustomerLocation)
 admin.site.register(Menu)
 admin.site.register(ServerLocation)
+admin.site.register(MainCourse)
+admin.site.register(MainCourseVideo)

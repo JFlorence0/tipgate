@@ -1,9 +1,9 @@
 from django.shortcuts import render, redirect
 from users.models import Account
 
-from .models import Venue, CustomerLocation, Menu
+from .models import Venue, CustomerLocation, Menu, MainCourse, MainCourseVideo
 
-from .forms import VenueForm, CustomerLocationForm, MenuForm
+from .forms import VenueForm, CustomerLocationForm, MenuForm, MainCourseForm, MainCourseVideoForm
 # Create your views here.
 def home(request):
 	""" Display the home page """
@@ -132,9 +132,7 @@ def build_menu(request, user_id):
 def venue_menu_view(request, user_id):
 	user = Account.objects.get(id=user_id)
 	entrees = [entree for entree in MainCourse.objects.all() if str(entree.menu.menu_owner.owner) == str(request.user.email)]
-	sides = [side for side in SideDish.objects.all() if str(side.menu.menu_owner.owner) == str(request.user.email)]
-	drinks = [drink for drink in Drink.objects.all() if str(drink.menu.menu_owner.owner) == str(request.user.email)]
-	context = {'user':user, 'entrees':entrees, 'sides':sides, 'drinks':drinks}
+	context = {'user':user, 'entrees':entrees}
 	return render(request, 'core/venue_menu_view.html', context)
 
 
@@ -153,9 +151,28 @@ def add_main_course(request, user_id):
 			main_course = form.save(commit=False)
 			main_course.menu = menu_instance
 			main_course.save()
-			return redirect('core:add_main_course', user_id)
+			return redirect('core:home')
 	context = {'user':user, 'form':form}
 	return render(request, 'core/add_main_course.html', context)
+
+def add_main_course_video(request, user_id):
+	user = Account.objects.get(id=user_id)
+	if request.method != 'POST':
+		# No data submitted; create a blank form.
+		form = MainCourseVideoForm()
+	else:
+		# POST data submitted; process data.
+		form = MainCourseVideoForm(data=request.POST, files=request.FILES)
+		if form.is_valid():
+			form.save()
+			return redirect('core:home')
+	context = {'user':user, 'form':form}
+	return render(request, 'core/add_main_course_video.html', context)
+
+def entree_view(request, entree_id):
+	entree = MainCourse.objects.get(id=entree_id)
+	context = {'entree':entree}
+	return render(request, 'core/entree_view.html', context)
 
 
 def add_side_dish(request, user_id):

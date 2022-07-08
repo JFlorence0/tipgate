@@ -30,8 +30,32 @@ class Menu(models.Model):
 
 
 	def __str__(self):
-		return f"{self.id}"
+		return f"{self.menu_owner}"
 
+class MainCourse(models.Model):
+	menu = models.ForeignKey(Menu, on_delete=models.CASCADE)
+	name = models.CharField(max_length=100)
+	ingredient1 = models.CharField(max_length=100, null=True, blank=True)
+	ingredient2 = models.CharField(max_length=100, null=True, blank=True)
+	ingredient3 = models.CharField(max_length=100, null=True, blank=True)
+	ingredient4 = models.CharField(max_length=100, null=True, blank=True)
+	ingredient5 = models.CharField(max_length=100, null=True, blank=True)
+	ingredient6 = models.CharField(max_length=100, null=True, blank=True)
+	ingredient7 = models.CharField(max_length=100, null=True, blank=True)
+	ingredient8 = models.CharField(max_length=100, null=True, blank=True)
+	ingredient9 = models.CharField(max_length=100, null=True, blank=True)
+	ingredient10 = models.CharField(max_length=100, null=True, blank=True)
+	description = models.TextField(null=True, blank=True)
+
+	def __str__(self):
+		return f"{self.name}"
+
+class MainCourseVideo(models.Model):
+	main_course_item = models.ForeignKey(MainCourse, on_delete=models.CASCADE)
+	video = models.FileField(upload_to='videos/', null=True, verbose_name="")
+
+	def __str__(self):
+		return f"{self.main_course_item}"
 
 
 class ServerLocation(models.Model):
