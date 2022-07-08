@@ -28,7 +28,6 @@ class CustomerLocation(models.Model):
 class Menu(models.Model):
 	menu_owner = models.OneToOneField(Venue, on_delete=models.CASCADE)
 
-
 	def __str__(self):
 		return f"{self.menu_owner}"
 
@@ -56,6 +55,12 @@ class MainCourseVideo(models.Model):
 
 	def __str__(self):
 		return f"{self.main_course_item}"
+
+class CustomMenu(models.Model):
+	custom_menu_owner = models.OneToOneField(Venue, on_delete=models.CASCADE)
+
+	def __str__(self):
+		return f"{self.custom_branch_menu_owner}"
 
 
 class ServerLocation(models.Model):
