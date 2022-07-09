@@ -23,11 +23,11 @@ urlpatterns = [
 	# Venue home page
 	path('venue_page/<int:user_id>/', views.venue_page, name='venue_page'),
 	# Build Menu Page
-	path('build_menu/<int:user_id>/', views.build_menu, name='build_menu'),
+	path('create_base_menu/<int:user_id>/', views.create_base_menu, name='create_base_menu'),
 	# Add a main course to the menu
 	path('add_main_course/<int:user_id>/', views.add_main_course, name='add_main_course'),
 	# Add video to a main course item
-	path('add_main_course_video/<int:user_id>/', views.add_main_course_video, name='add_main_course_video'),
+	path('add_main_course_video/<int:entree_id>/', views.add_main_course_video, name='add_main_course_video'),
 	# View Entree
 	path('entree_view/<int:entree_id>/', views.entree_view, name='entree_view'),
 

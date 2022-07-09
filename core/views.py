@@ -18,9 +18,10 @@ def home(request):
 		# User is a venue
 		if request.user.is_venue == True:
 			venues = [venue for venue in Venue.objects.all() if str(venue.owner) == str(request.user.email)]
-			context = {'user':user, 'venues':venues}
+			num_venues = len(venues)
+			context = {'user':user, 'venues':venues, 'num_venues':num_venues}
 			# Check if venue has a menu
-			menu = [menu for menu in Menu.objects.all() if str(menu.menu_owner.owner) == str(request.user.email)]
+			menu = [menu for menu in Menu.objects.all() if str(menu.menu_owner) == str(request.user.email)]
 			if len(menu) > 0:
 				context = {'user':user, 'venues':venues, 'menu':menu}
 
@@ -110,7 +111,7 @@ def venue_page(request, user_id):
 
 
 # Venues enter their menu items
-def build_menu(request, user_id):
+def create_base_menu(request, user_id):
 	user = Account.objects.get(id=user_id)
 	venue_instance = [venue for venue in Venue.objects.all() if str(venue.owner) == str(request.user.email)]
 	venue_instance = venue_instance[0]
@@ -122,23 +123,34 @@ def build_menu(request, user_id):
 		form = MenuForm(data=request.POST)
 		if form.is_valid():
 			venue_menu = form.save(commit=False)
-			venue_menu.owner = venue_instance
+			venue_menu.owner = user
 			venue_menu.save()
-			return redirect('core:menu_items', user_id)
-	context = {'user':user, 'venue_instance':venue_instance, 'form':form}
-	return render(request, 'core/build_menu.html', context)
+			return redirect('core:venue_menu_view', user_id)
+	context = {'user':user, 'form':form}
+	return render(request, 'core/create_base_menu.html', context)
 
 # Menu view from the venue's POV
 def venue_menu_view(request, user_id):
 	user = Account.objects.get(id=user_id)
-	entrees = [entree for entree in MainCourse.objects.all() if str(entree.menu.menu_owner.owner) == str(request.user.email)]
-	context = {'user':user, 'entrees':entrees}
+	entrees = [entree for entree in MainCourse.objects.all() if str(entree.menu.menu_owner) == str(request.user.email)]
+	has_video = []
+	for item in MainCourseVideo.objects.all():
+		for entree in MainCourse.objects.all():
+			if str(item.main_course_item) == str(entree):
+				has_video.append(entree)
+				break
+	no_video = []
+	for entree in entrees:
+		if entree not in has_video:
+			no_video.append(entree)
+
+	context = {'user':user, 'entrees':entrees, 'has_video':has_video, 'no_video':no_video}
 	return render(request, 'core/venue_menu_view.html', context)
 
 
 def add_main_course(request, user_id):
 	user = Account.objects.get(id=user_id)
-	menu_instance = [menu for menu in Menu.objects.all() if str(menu.menu_owner.owner) == str(request.user.email)]
+	menu_instance = [menu for menu in Menu.objects.all() if str(menu.menu_owner) == str(request.user.email)]
 	menu_instance = menu_instance[0]
 
 	if request.method != 'POST':
@@ -155,8 +167,8 @@ def add_main_course(request, user_id):
 	context = {'user':user, 'form':form}
 	return render(request, 'core/add_main_course.html', context)
 
-def add_main_course_video(request, user_id):
-	user = Account.objects.get(id=user_id)
+def add_main_course_video(request, entree_id):
+	entree = MainCourse.objects.get(id=entree_id)
 	if request.method != 'POST':
 		# No data submitted; create a blank form.
 		form = MainCourseVideoForm()
@@ -166,7 +178,7 @@ def add_main_course_video(request, user_id):
 		if form.is_valid():
 			form.save()
 			return redirect('core:home')
-	context = {'user':user, 'form':form}
+	context = {'entree':entree, 'form':form}
 	return render(request, 'core/add_main_course_video.html', context)
 
 def entree_view(request, entree_id):

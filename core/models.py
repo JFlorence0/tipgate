@@ -26,7 +26,7 @@ class CustomerLocation(models.Model):
 		return f"{self.location}"
 
 class Menu(models.Model):
-	menu_owner = models.OneToOneField(Venue, on_delete=models.CASCADE)
+	menu_owner = models.OneToOneField(Account, on_delete=models.CASCADE)
 
 	def __str__(self):
 		return f"{self.menu_owner}"

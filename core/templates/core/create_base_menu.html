@@ -12,7 +12,7 @@
 {% endblock navbar %}
 {% block content %}
 	{{ venue_instance }}
-	<form action="{% url 'core:build_menu' user.id %}" method="post">
+	<form action="{% url 'core:create_base_menu' user.id %}" method="post">
 		{% csrf_token %}
 		{{ form.as_p }}
 		
