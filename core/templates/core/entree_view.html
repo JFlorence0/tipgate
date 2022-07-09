@@ -15,6 +15,8 @@
 <p><b>Entree Name: {{ entree.name }}</b></p>
 {% if video %}
 	<b>Video:</b><br>
+	<small><a href="{% url 'core:add_main_course_video' entree.id %}">update video</a></small><br>
+
 	<video width='400' controls>
 	<source src='{{ MEDIA_URL }}{{ video }}' type='video/mp4'>
 	Your browser does not support the video tag.
@@ -27,10 +29,31 @@
 <p>{{ entree.ingredient4 }}</p><br>
 <p>{{ entree.ingredient5 }}</p><br>
 <p>{{ entree.ingredient6 }}</p><br>
-<p>{{ entree.ingredient7 }}</p><br>
-<p>{{ entree.ingredient8 }}</p><br>
-<p>{{ entree.ingredient9 }}</p><br>
-<p>{{ entree.ingredient10 }}</p><br>
+{% if entree.ingredient7 == None %}
+{% else %}
+	<p>{{ entree.ingredient7 }}</p><br>
+{% endif %}
+
+{% if entree.ingredient8 == None %}
+{% else %}
+	<p>{{ entree.ingredient8 }}</p><br>
+{% endif %}
+
+{% if entree.ingredient9 == None %}
+{% else %}
+	<p>{{ entree.ingredient9 }}</p><br>
+{% endif %}
+
+{% if entree.ingredient10 == None %}
+{% else %}
+	<p>{{ entree.ingredient10 }}</p><br>
+{% endif %}
+
+<p>{% if entree.description == None %}
+		<p>No description for this item</p>
+	{% else %}
+	<p>{{ entree.description }}</p>
+	{% endif %}</p>
 
 {% endblock content %}
 </body>

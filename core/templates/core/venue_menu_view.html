@@ -14,14 +14,11 @@
 <small><a href="{% url 'core:home' %}">->Back</a></small>
 <h4>Entree's</h4>
 <a href="{% url 'core:add_main_course' user.id %}">Add Entree</a><br><br>
-<p>Entree items without video</p>
-{% for entree in no_video %}
+{% for entree in entrees %}
 	<a href="{% url 'core:entree_view' entree.id %}">{{ entree }}</a><br>
-	<a href="{% url 'core:add_main_course_video' entree.id %}">Add video</a>
 	
 {% empty %}
-	<em>No entrees entered yet</em><br>
-	<p><a href="{% url 'core:add_main_course' user.id %}">Add Entree</a></p>
+	<p><em>No entree's added yet.</em></p>
 {% endfor %}
 
 
@@ -29,12 +26,14 @@
 {% for side in sides %}
 	<a href="{% url 'core:add_side_dish_ingredient' user.id %}">{{ side }}</a><br>
 {% empty %}
+	<p><em>No items added yet</em></p>
 {% endfor %}
 
 <br><h4>Drinks</h4><br>
 {% for drink in drinks %}
 	<a href="{% url 'core:add_drink_ingredient' user.id %}">{{ drink }}</a><br>
 {% empty %}
+	<p><em>No items added yet</em></p>
 {% endfor %}
 
 

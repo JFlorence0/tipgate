@@ -50,7 +50,7 @@ class MainCourse(models.Model):
 		return f"{self.name}"
 
 class MainCourseVideo(models.Model):
-	main_course_item = models.OneToOneField(MainCourse, on_delete=models.CASCADE)
+	main_course_item = models.ForeignKey(MainCourse, on_delete=models.CASCADE)
 	video = models.FileField(upload_to='videos/', null=True, verbose_name="")
 
 	def __str__(self):

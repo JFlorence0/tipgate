@@ -23,23 +23,38 @@
 			
 			<!--If the venue has a menu -->
 			{% if menu %}
-
-			<h4>View Base Menu</h4><br>
-			<small><em>This menu will be the default menu for each venue unless a custom menu is set.</em></small><br>
-			<a href="{% url 'core:venue_menu_view' user.id %}">Base Menu</a><br><br>
-
-
-				<h5>Add items to the Base Menu</h5>
-				<a href="{% url 'core:add_main_course' user.id %}">Add an Entree</a><br>
-
-				<a href="">Add a Side</a><br>
-
-				<a href="">Add a Drink</a><br>
-
-			<h4>View Custom Menu</h4>
-			<small><em>This menu can be customized and only set to one location.</em></small><br>
-			<a href="">Custom Menu</a><br><br>
-
+				<div class="row">
+  					<div class="col-sm-6">
+    					<div class="card text-center">
+      						<div class="card-body">
+        						<h5 class="card-title">View Base Menu</h5>
+        						<small class="card-text"><em>Default menu for all venues</em></small><br><br>
+        						<p class="card-text">The Base menu will be the default menu for each location unless a custom menu is specified</p>
+        						<a href="{% url 'core:venue_menu_view' user.id %}" class="btn btn-primary">View Base Menu</a>
+      						</div>
+    					</div>
+  					</div>
+  					<div class="col-sm-6" >
+    					<div class="card text-center">
+      						<div class="card-body">
+        						<h5 class="card-title">View Custom Menu</h5>
+        						<small class="card-text"><em>Custom menu for a specific location</em></small><br><br>
+        						<p class="card-text">Create menus or add items that may be seasonal here.</p><br>
+        						<a href="{% url 'core:venue_menu_view' user.id %}" class="btn btn-primary">View Custom Menu</a>
+      						</div>
+    					</div>
+  					</div>
+				
+				 <div class="col-sm-6" >
+    				<div class="card text-center">
+      					<div class="card-body">
+        					<h5 class="card-title">Add Video To Menue Items</h5>
+        					<p class="card-text">Add video to menu items to give your customers a dynamic view.</p>
+        					<a href="{% url 'core:video' user.id %}" class="btn btn-primary">Add Video</a>
+      					</div>
+   					</div>
+  				</div>
+				</div>
 					
 
 			<!--If the venue does not have a menu -->

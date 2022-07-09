@@ -147,7 +147,7 @@ def venue_menu_view(request, user_id):
 	context = {'user':user, 'entrees':entrees, 'has_video':has_video, 'no_video':no_video}
 	return render(request, 'core/venue_menu_view.html', context)
 
-
+# Add main course to the base menu
 def add_main_course(request, user_id):
 	user = Account.objects.get(id=user_id)
 	menu_instance = [menu for menu in Menu.objects.all() if str(menu.menu_owner) == str(request.user.email)]
@@ -167,6 +167,7 @@ def add_main_course(request, user_id):
 	context = {'user':user, 'form':form}
 	return render(request, 'core/add_main_course.html', context)
 
+# Add a video for the main course
 def add_main_course_video(request, entree_id):
 	entree = MainCourse.objects.get(id=entree_id)
 	if request.method != 'POST':
@@ -177,15 +178,16 @@ def add_main_course_video(request, entree_id):
 		form = MainCourseVideoForm(data=request.POST, files=request.FILES)
 		if form.is_valid():
 			form.save()
-			return redirect('core:home')
+			return redirect('core:entree_view', entree_id=entree.id)
 	context = {'entree':entree, 'form':form}
 	return render(request, 'core/add_main_course_video.html', context)
+
 
 def entree_view(request, entree_id):
 	entree = MainCourse.objects.get(id=entree_id)
 	video = [item.video for item in MainCourseVideo.objects.all() if str(item.main_course_item.name) == str(entree)]
 	if video:
-		video = video[0]
+		video = video[-1]
 	context = {'entree':entree, 'video':video}
 	return render(request, 'core/entree_view.html', context)
 
@@ -228,6 +230,23 @@ def add_drink(request, user_id):
 			return redirect('core:add_drink', user_id)
 	context = {'user':user, 'form':form}
 	return render(request, 'core/add_drink.html', context)
+
+def video(request, user_id):
+	entrees = [entree for entree in MainCourse.objects.all() if str(entree.menu.menu_owner) == str(request.user.email)]
+	has_video = []
+	for item in MainCourseVideo.objects.all():
+		for entree in MainCourse.objects.all():
+			if str(item.main_course_item) == str(entree):
+				has_video.append(entree)
+				break
+	no_video = []
+	for entree in entrees:
+		if entree not in has_video:
+			no_video.append(entree)
+
+	print(no_video, has_video)
+	context = {'entrees':entrees, 'has_video':has_video, 'no_video':no_video}
+	return render(request, 'core/video.html', context)
 
 
 

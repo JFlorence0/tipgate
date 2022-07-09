@@ -31,4 +31,8 @@ urlpatterns = [
 	# View Entree
 	path('entree_view/<int:entree_id>/', views.entree_view, name='entree_view'),
 
+	# Add Video To Items
+	path('video/<int:user_id>/', views.video, name='video'),
+
+
 ]

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+{% extends 'core/base.html' %}
+{% load bootstrap4 %}
+{% block navbar %}
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title></title>
+</head>
+<body>
+<small><a href="{% url 'core:home' %}">->Back</a></small><br>
+{% endblock navbar %}
+{% block content %}
+<h5>Add Video To Entrees</h5>
+{% for entree in entrees %}
+	<a href="{% url 'core:add_main_course_video' entree.id %}">{{ entree }}</a><br>
+{% empty %}
+{% endfor %}
+
+{% if no_video %}
+	<h5>These Entrees do not have video</h5>
+{% else %}
+{% endif %}
+
+{% for item in no_video %}
+	<p>{{ item }}<br>
+		<a href="{% url 'core:add_main_course_video' item.id %}">Add Video</a></p>
+
+
+{% empty %}
+	<p>You're all set! All of your menu items have video.</p>
+{% endfor %}
+
+{% endblock content %}
+</body>
+</html>
