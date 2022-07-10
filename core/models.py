@@ -56,6 +56,53 @@ class MainCourseVideo(models.Model):
 	def __str__(self):
 		return f"{self.main_course_item}"
 
+class SideDish(models.Model):
+	menu = models.ForeignKey(Menu, on_delete=models.CASCADE)
+	name = models.CharField(max_length=100)
+	ingredient1 = models.CharField(max_length=100, null=True, blank=True)
+	ingredient2 = models.CharField(max_length=100, null=True, blank=True)
+	ingredient3 = models.CharField(max_length=100, null=True, blank=True)
+	ingredient4 = models.CharField(max_length=100, null=True, blank=True)
+	ingredient5 = models.CharField(max_length=100, null=True, blank=True)
+	ingredient6 = models.CharField(max_length=100, null=True, blank=True)
+	ingredient7 = models.CharField(max_length=100, null=True, blank=True)
+	ingredient8 = models.CharField(max_length=100, null=True, blank=True)
+	ingredient9 = models.CharField(max_length=100, null=True, blank=True)
+	ingredient10 = models.CharField(max_length=100, null=True, blank=True)
+	description = models.TextField(null=True, blank=True)
+
+	def __str__(self):
+		return f"{self.name}"
+
+class SideDishVideo(models.Model):
+	side_dish_item = models.ForeignKey(SideDish, on_delete=models.CASCADE)
+	video = models.FileField(upload_to='videos/', null=True, verbose_name="")
+
+class Drink(models.Model):
+	menu = models.ForeignKey(Menu, on_delete=models.CASCADE)
+	name = models.CharField(max_length=100)
+	ingredient1 = models.CharField(max_length=100, null=True, blank=True)
+	ingredient2 = models.CharField(max_length=100, null=True, blank=True)
+	ingredient3 = models.CharField(max_length=100, null=True, blank=True)
+	ingredient4 = models.CharField(max_length=100, null=True, blank=True)
+	ingredient5 = models.CharField(max_length=100, null=True, blank=True)
+	ingredient6 = models.CharField(max_length=100, null=True, blank=True)
+	ingredient7 = models.CharField(max_length=100, null=True, blank=True)
+	ingredient8 = models.CharField(max_length=100, null=True, blank=True)
+	ingredient9 = models.CharField(max_length=100, null=True, blank=True)
+	ingredient10 = models.CharField(max_length=100, null=True, blank=True)
+	description = models.TextField(null=True, blank=True)
+
+	def __str__(self):
+		return f"{self.name}"
+
+class DrinkVideo(models.Model):
+	drink_item = models.ForeignKey(Drink, on_delete=models.CASCADE)
+	video = models.FileField(upload_to='videos/', null=True, verbose_name="")
+
+	def __str__(self):
+		return f"{self.side_dish_item}"
+
 class CustomMenu(models.Model):
 	custom_menu_owner = models.OneToOneField(Venue, on_delete=models.CASCADE)
 

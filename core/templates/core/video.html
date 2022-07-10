@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 {% extends 'core/base.html' %}
-{% load bootstrap4 %}
+{% load bootstrap5 %}
 {% block navbar %}
 <head>
 	<meta charset="utf-8">
@@ -12,20 +12,51 @@
 <small><a href="{% url 'core:home' %}">->Back</a></small><br>
 {% endblock navbar %}
 {% block content %}
+<h3>Entrees</h3>
+<div class="accordion" id="accordionExample">
+	{% for entree in entrees %}
+  <div class="accordion-item">
+    <h2 class="accordion-header" id="entree{{ entree.id }}">
+      <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+        {{ entree }}
+      </button>
+    </h2>
+    <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="entree{{ entree.id }}" data-bs-parent="#accordionExample">
+      <div class="accordion-body">
+      	<small><a href="{% url 'core:add_main_course_video' entree.id %}">View Video</a></small><br>
+    		<small><a href="">Edit Ingredients/Description</a></small><br><br>
+        <strong>{{ entree.name }}:</strong> {{ entree.description }}.<br> Ingredients:<br>{{ entree.ingredient1 }}, {{ entree.ingredient2 }}, {{ entree.ingredient3 }}, {{ entree.ingredient4 }}
+      </div>
+    </div>
+  </div>
+  {% empty %}
+  {% endfor %}
+</div>
 <h5>Add Video To Entrees</h5>
 {% for entree in entrees %}
 	<a href="{% url 'core:add_main_course_video' entree.id %}">{{ entree }}</a><br>
 {% empty %}
 {% endfor %}
 
+<h5>Add Video To Sides</h5>
+{% for side in sides %}
+	<a href="{% url 'core:add_side_dish_video' side.id %}">{{ side }}</a><br>
+{% empty %}
+{% endfor %}
+
+<h5>Add Video To Drinks</h5>
+{% for drink in drinks %}
+	{{ drink }}
+{% empty %}
+{% endfor %}
+
 {% if no_video %}
-	<h5>These Entrees do not have video</h5>
+	<h5>These Items do not have video</h5>
 {% else %}
 {% endif %}
 
 {% for item in no_video %}
-	<p>{{ item }}<br>
-		<a href="{% url 'core:add_main_course_video' item.id %}">Add Video</a></p>
+	<p><b>{{ item }}</b><br>
 
 
 {% empty %}

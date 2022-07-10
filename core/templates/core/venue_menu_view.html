@@ -22,9 +22,10 @@
 {% endfor %}
 
 
-<br><h4>Sides</h4><br>
+<br><h4>Sides</h4>
+<a href="{% url 'core:add_side_dish' user.id %}">Add Side</a><br><br>
 {% for side in sides %}
-	<a href="{% url 'core:add_side_dish_ingredient' user.id %}">{{ side }}</a><br>
+	<a href="{% url 'core:add_side_dish' user.id %}">{{ side }}</a><br>
 {% empty %}
 	<p><em>No items added yet</em></p>
 {% endfor %}

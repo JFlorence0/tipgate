@@ -31,6 +31,11 @@ urlpatterns = [
 	# View Entree
 	path('entree_view/<int:entree_id>/', views.entree_view, name='entree_view'),
 
+	# Add a side dish to the menu
+	path('add_side_dish/<int:user_id>/', views.add_side_dish, name='add_side_dish'),
+	# Add video to a side dish item
+	path('add_side_dish_video/<int:side_id>/', views.add_side_dish_video, name='add_side_dish_video'),
+
 	# Add Video To Items
 	path('video/<int:user_id>/', views.video, name='video'),
 

@@ -15,13 +15,14 @@
 <p><b>Entree Name: {{ entree.name }}</b></p>
 {% if video %}
 	<b>Video:</b><br>
-	<small><a href="{% url 'core:add_main_course_video' entree.id %}">update video</a></small><br>
+	<small><a href="{% url 'core:video' user.id %}">update video</a></small><br>
 
 	<video width='400' controls>
 	<source src='{{ MEDIA_URL }}{{ video }}' type='video/mp4'>
 	Your browser does not support the video tag.
 	</video>
 {% else %}
+	<a href="{% url 'core:add_main_course_video' entree.id %}">Add Video for {{ entree }}</a>
 {% endif %}
 <p>{{ entree.ingredient1 }}</p><br>
 <p>{{ entree.ingredient2 }}</p><br>

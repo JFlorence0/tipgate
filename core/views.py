@@ -2,8 +2,10 @@ from django.shortcuts import render, redirect
 from users.models import Account
 
 from .models import Venue, CustomerLocation, Menu, MainCourse, MainCourseVideo
+from .models import SideDish, SideDishVideo, Drink, DrinkVideo
 
 from .forms import VenueForm, CustomerLocationForm, MenuForm, MainCourseForm, MainCourseVideoForm
+from .forms import SideDishForm, SideDishVideoForm, DrinkForm, DrinkVideoForm
 # Create your views here.
 def home(request):
 	""" Display the home page """
@@ -114,7 +116,8 @@ def venue_page(request, user_id):
 def create_base_menu(request, user_id):
 	user = Account.objects.get(id=user_id)
 	venue_instance = [venue for venue in Venue.objects.all() if str(venue.owner) == str(request.user.email)]
-	venue_instance = venue_instance[0]
+	if venue_instance:
+		venue_instance = venue_instance[0]
 	if request.method != 'POST':
 		# No data submitted; create a blank form.
 		form = MenuForm()
@@ -133,18 +136,24 @@ def create_base_menu(request, user_id):
 def venue_menu_view(request, user_id):
 	user = Account.objects.get(id=user_id)
 	entrees = [entree for entree in MainCourse.objects.all() if str(entree.menu.menu_owner) == str(request.user.email)]
+	sides = [side for side in SideDish.objects.all() if str(side.menu.menu_owner) == str(request.user.email)]
 	has_video = []
 	for item in MainCourseVideo.objects.all():
 		for entree in MainCourse.objects.all():
 			if str(item.main_course_item) == str(entree):
 				has_video.append(entree)
 				break
+	for item in SideDishVideo.objects.all():
+		for side in SideDish.objects.all():
+			if str(item.main_course_item) == str(side):
+				has_video.append(side)
+				break
 	no_video = []
 	for entree in entrees:
 		if entree not in has_video:
 			no_video.append(entree)
 
-	context = {'user':user, 'entrees':entrees, 'has_video':has_video, 'no_video':no_video}
+	context = {'user':user, 'entrees':entrees, 'sides':sides, 'has_video':has_video, 'no_video':no_video}
 	return render(request, 'core/venue_menu_view.html', context)
 
 # Add main course to the base menu
@@ -191,10 +200,10 @@ def entree_view(request, entree_id):
 	context = {'entree':entree, 'video':video}
 	return render(request, 'core/entree_view.html', context)
 
-
+# Add a side dish to the menu
 def add_side_dish(request, user_id):
 	user = Account.objects.get(id=user_id)
-	menu_instance = [menu for menu in Menu.objects.all() if str(menu.menu_owner.owner) == str(request.user.email)]
+	menu_instance = [menu for menu in Menu.objects.all() if str(menu.menu_owner) == str(request.user.email)]
 	menu_instance = menu_instance[0]
 
 	if request.method != 'POST':
@@ -211,10 +220,25 @@ def add_side_dish(request, user_id):
 	context = {'user':user, 'form':form}
 	return render(request, 'core/add_side_dish.html', context)
 
+# Add a video for a side dish
+def add_side_dish_video(request, side_id):
+	side = SideDish.objects.get(id=side_id)
+	if request.method != 'POST':
+		# No data submitted; create a blank form.
+		form = SideDishVideoForm()
+	else:
+		# POST data submitted; process data.
+		form = SideDishVideoForm(data=request.POST, files=request.FILES)
+		if form.is_valid():
+			form.save()
+			return redirect('core:entree_view', side_id=side.id)
+	context = {'side':side, 'form':form}
+	return render(request, 'core/add_side_dish_video.html', context)
+
 
 def add_drink(request, user_id):
 	user = Account.objects.get(id=user_id)
-	menu_instance = [menu for menu in Menu.objects.all() if str(menu.menu_owner.owner) == str(request.user.email)]
+	menu_instance = [menu for menu in Menu.objects.all() if str(menu.menu_owner) == str(request.user.email)]
 	menu_instance = menu_instance[0]
 
 	if request.method != 'POST':
@@ -231,21 +255,55 @@ def add_drink(request, user_id):
 	context = {'user':user, 'form':form}
 	return render(request, 'core/add_drink.html', context)
 
+# Add a video for a side dish
+def add_drink_video(request, drink_id):
+	drink = Drink.objects.get(id=drink_id)
+	if request.method != 'POST':
+		# No data submitted; create a blank form.
+		form = DrinkVideoForm()
+	else:
+		# POST data submitted; process data.
+		form = DrinkVideoForm(data=request.POST, files=request.FILES)
+		if form.is_valid():
+			form.save()
+			return redirect('core:entree_view', drink_id=drink.id)
+	context = {'drink':drink, 'form':form}
+	return render(request, 'core/add_drink_video.html', context)
+
 def video(request, user_id):
 	entrees = [entree for entree in MainCourse.objects.all() if str(entree.menu.menu_owner) == str(request.user.email)]
+	sides = [side for side in SideDish.objects.all() if str(side.menu.menu_owner) == str(request.user.email)]
+	drinks = [drink for drink in Drink.objects.all() if str(drink.menu.menu_owner) == str(request.user.email)]
 	has_video = []
 	for item in MainCourseVideo.objects.all():
 		for entree in MainCourse.objects.all():
 			if str(item.main_course_item) == str(entree):
 				has_video.append(entree)
 				break
+	for item in SideDishVideo.objects.all():
+		for side in SideDish.objects.all():
+			if str(item.main_course_item) == str(side):
+				has_video.append(side)
+				break
+	for item in DrinkVideo.objects.all():
+		for drink in Drink.objects.all():
+			if str(item.main_course_item) == str(drink):
+				has_video.append(drink)
+				break
 	no_video = []
 	for entree in entrees:
 		if entree not in has_video:
 			no_video.append(entree)
 
-	print(no_video, has_video)
-	context = {'entrees':entrees, 'has_video':has_video, 'no_video':no_video}
+	for side in sides:
+		if side not in has_video:
+			no_video.append(side)
+
+	for drink in drinks:
+		if drink not in has_video:
+			no_video.append(drink)
+	context = {'entrees':entrees, 'has_video':has_video, 'no_video':no_video,
+		'sides':sides}
 	return render(request, 'core/video.html', context)
 
 
