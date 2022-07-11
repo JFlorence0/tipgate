@@ -176,9 +176,28 @@ def add_main_course(request, user_id):
 	context = {'user':user, 'form':form}
 	return render(request, 'core/add_main_course.html', context)
 
+def edit_main_course(request, entree_id):
+	entree = MainCourse.objects.get(id=entree_id)
+
+	if request.method != 'POST':
+		# Initial request; pre-fill form with the current values
+		form = MainCourseForm(instance=entree)
+	else:
+		# POST data submitted; process data.
+		form = MainCourseForm(instance=entree, data=request.POST)
+		if form.is_valid():
+			form.save()
+			return redirect('core:video', user_id=request.user.id)
+
+	context = {'entree':entree, 'form':form}
+	return render(request, 'core/edit_main_course.html', context)
+
 # Add a video for the main course
 def add_main_course_video(request, entree_id):
 	entree = MainCourse.objects.get(id=entree_id)
+	video = [item.video for item in MainCourseVideo.objects.all() if str(item.main_course_item.name) == str(entree)]
+	if video:
+		video = video[-1]
 	if request.method != 'POST':
 		# No data submitted; create a blank form.
 		form = MainCourseVideoForm()
@@ -188,7 +207,7 @@ def add_main_course_video(request, entree_id):
 		if form.is_valid():
 			form.save()
 			return redirect('core:entree_view', entree_id=entree.id)
-	context = {'entree':entree, 'form':form}
+	context = {'entree':entree, 'form':form, 'video':video}
 	return render(request, 'core/add_main_course_video.html', context)
 
 
@@ -220,9 +239,28 @@ def add_side_dish(request, user_id):
 	context = {'user':user, 'form':form}
 	return render(request, 'core/add_side_dish.html', context)
 
+def edit_side_dish(request, side_id):
+	side = MainCourse.objects.get(id=side_id)
+
+	if request.method != 'POST':
+		# Initial request; pre-fill form with the current values
+		form = SideDishForm(instance=side)
+	else:
+		# POST data submitted; process data.
+		form = SideDishForm(instance=side, data=request.POST)
+		if form.is_valid():
+			form.save()
+			return redirect('core:video', user_id=request.user.id)
+
+	context = {'entree':entree, 'form':form, 'side':side}
+	return render(request, 'core/edit_main_course.html', context)
+
 # Add a video for a side dish
 def add_side_dish_video(request, side_id):
 	side = SideDish.objects.get(id=side_id)
+	video = [item.video for item in MainCourseVideo.objects.all() if str(item.main_course_item.name) == str(side)]
+	if video:
+		video = video[-1]
 	if request.method != 'POST':
 		# No data submitted; create a blank form.
 		form = SideDishVideoForm()
@@ -232,7 +270,7 @@ def add_side_dish_video(request, side_id):
 		if form.is_valid():
 			form.save()
 			return redirect('core:entree_view', side_id=side.id)
-	context = {'side':side, 'form':form}
+	context = {'side':side, 'form':form, 'video':video}
 	return render(request, 'core/add_side_dish_video.html', context)
 
 

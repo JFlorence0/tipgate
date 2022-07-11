@@ -23,8 +23,9 @@
     </h2>
     <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="entree{{ entree.id }}" data-bs-parent="#accordionExample">
       <div class="accordion-body">
-      	<small><a href="{% url 'core:add_main_course_video' entree.id %}">View Video</a></small><br>
-    		<small><a href="">Edit Ingredients/Description</a></small><br><br>
+      	<small><a href="{% url 'core:add_main_course_video' entree.id %}">Update/View Video</a></small><br>
+    		<small><a href="{% url 'core:edit_main_course' entree.id %}">Edit Ingredients/Description</a></small><br>
+    		<small><a href="">Remove item from menu</a></small><br><br>
         <strong>{{ entree.name }}:</strong> {{ entree.description }}.<br> Ingredients:<br>{{ entree.ingredient1 }}, {{ entree.ingredient2 }}, {{ entree.ingredient3 }}, {{ entree.ingredient4 }}
       </div>
     </div>
@@ -32,11 +33,6 @@
   {% empty %}
   {% endfor %}
 </div>
-<h5>Add Video To Entrees</h5>
-{% for entree in entrees %}
-	<a href="{% url 'core:add_main_course_video' entree.id %}">{{ entree }}</a><br>
-{% empty %}
-{% endfor %}
 
 <h5>Add Video To Sides</h5>
 {% for side in sides %}

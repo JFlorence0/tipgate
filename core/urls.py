@@ -24,10 +24,14 @@ urlpatterns = [
 	path('venue_page/<int:user_id>/', views.venue_page, name='venue_page'),
 	# Build Menu Page
 	path('create_base_menu/<int:user_id>/', views.create_base_menu, name='create_base_menu'),
+
 	# Add a main course to the menu
 	path('add_main_course/<int:user_id>/', views.add_main_course, name='add_main_course'),
 	# Add video to a main course item
 	path('add_main_course_video/<int:entree_id>/', views.add_main_course_video, name='add_main_course_video'),
+	# Edit a main course
+	path('edit_main_course/<int:entree_id>/', views.edit_main_course, name='edit_main_course'),
+
 	# View Entree
 	path('entree_view/<int:entree_id>/', views.entree_view, name='entree_view'),
 
@@ -35,6 +39,8 @@ urlpatterns = [
 	path('add_side_dish/<int:user_id>/', views.add_side_dish, name='add_side_dish'),
 	# Add video to a side dish item
 	path('add_side_dish_video/<int:side_id>/', views.add_side_dish_video, name='add_side_dish_video'),
+	# Edit a side dish
+	path('edit_side_dish/<int:side_id>/', views.edit_side_dish, name='edit_side_dish'),
 
 	# Add Video To Items
 	path('video/<int:user_id>/', views.video, name='video'),
