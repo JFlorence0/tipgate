@@ -187,7 +187,7 @@ def edit_main_course(request, entree_id):
 		form = MainCourseForm(instance=entree, data=request.POST)
 		if form.is_valid():
 			form.save()
-			return redirect('core:video', user_id=request.user.id)
+			return redirect('core:edit_menu', user_id=request.user.id)
 
 	context = {'entree':entree, 'form':form}
 	return render(request, 'core/edit_main_course.html', context)
@@ -250,7 +250,7 @@ def edit_side_dish(request, side_id):
 		form = SideDishForm(instance=side, data=request.POST)
 		if form.is_valid():
 			form.save()
-			return redirect('core:video', user_id=request.user.id)
+			return redirect('core:edit_menu', user_id=request.user.id)
 
 	context = {'side':side, 'form':form}
 	return render(request, 'core/edit_side_dish.html', context)
@@ -288,9 +288,7 @@ def add_drink(request, user_id):
 		form = DrinkForm(data=request.POST)
 		if form.is_valid():
 			drink = form.save(commit=False)
-			print(drink)
 			drink.menu = menu_instance
-			print(drink.menu)
 			drink.save()
 			return redirect('core:add_drink', user_id)
 	context = {'user':user, 'form':form}
@@ -327,12 +325,12 @@ def edit_drink(request, drink_id):
 		form = DrinkForm(instance=drink, data=request.POST)
 		if form.is_valid():
 			form.save()
-			return redirect('core:video', user_id=request.user.id)
+			return redirect('core:edit_menu', user_id=request.user.id)
 
 	context = {'drink':drink, 'form':form}
 	return render(request, 'core/edit_drink.html', context)	
 
-def video(request, user_id):
+def edit_menu(request, user_id):
 	entrees = [entree for entree in MainCourse.objects.all() if str(entree.menu.menu_owner) == str(request.user.email)]
 	sides = [side for side in SideDish.objects.all() if str(side.menu.menu_owner) == str(request.user.email)]
 	drinks = [drink for drink in Drink.objects.all() if str(drink.menu.menu_owner) == str(request.user.email)]
@@ -366,7 +364,7 @@ def video(request, user_id):
 			no_video.append(drink)
 	context = {'entrees':entrees, 'has_video':has_video, 'no_video':no_video,
 		'sides':sides, 'drinks':drinks}
-	return render(request, 'core/video.html', context)
+	return render(request, 'core/edit_menu.html', context)
 
 
 

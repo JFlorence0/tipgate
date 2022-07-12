@@ -50,7 +50,7 @@ urlpatterns = [
 	path('edit_drink/<int:drink_id>/', views.edit_drink, name='edit_drink'),
 
 	# Add Video To Items
-	path('video/<int:user_id>/', views.video, name='video'),
+	path('edit_menu/<int:user_id>/', views.edit_menu, name='edit_menu'),
 
 
 ]
