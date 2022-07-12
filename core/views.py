@@ -240,7 +240,7 @@ def add_side_dish(request, user_id):
 	return render(request, 'core/add_side_dish.html', context)
 
 def edit_side_dish(request, side_id):
-	side = MainCourse.objects.get(id=side_id)
+	side = SideDish.objects.get(id=side_id)
 
 	if request.method != 'POST':
 		# Initial request; pre-fill form with the current values
@@ -252,13 +252,14 @@ def edit_side_dish(request, side_id):
 			form.save()
 			return redirect('core:video', user_id=request.user.id)
 
-	context = {'entree':entree, 'form':form, 'side':side}
-	return render(request, 'core/edit_main_course.html', context)
+	context = {'side':side, 'form':form}
+	return render(request, 'core/edit_side_dish.html', context)
+	
 
 # Add a video for a side dish
 def add_side_dish_video(request, side_id):
 	side = SideDish.objects.get(id=side_id)
-	video = [item.video for item in MainCourseVideo.objects.all() if str(item.main_course_item.name) == str(side)]
+	video = [item.video for item in SideDishVideo.objects.all() if str(item.side_dish_item.name) == str(side)]
 	if video:
 		video = video[-1]
 	if request.method != 'POST':
@@ -287,15 +288,21 @@ def add_drink(request, user_id):
 		form = DrinkForm(data=request.POST)
 		if form.is_valid():
 			drink = form.save(commit=False)
+			print(drink)
 			drink.menu = menu_instance
+			print(drink.menu)
 			drink.save()
 			return redirect('core:add_drink', user_id)
 	context = {'user':user, 'form':form}
 	return render(request, 'core/add_drink.html', context)
 
+
 # Add a video for a side dish
 def add_drink_video(request, drink_id):
 	drink = Drink.objects.get(id=drink_id)
+	video = [item.video for item in DrinkVideo.objects.all() if str(item.drink_item.name) == str(drink)]
+	if video:
+		video = video[-1]
 	if request.method != 'POST':
 		# No data submitted; create a blank form.
 		form = DrinkVideoForm()
@@ -305,8 +312,25 @@ def add_drink_video(request, drink_id):
 		if form.is_valid():
 			form.save()
 			return redirect('core:entree_view', drink_id=drink.id)
-	context = {'drink':drink, 'form':form}
+	context = {'drink':drink, 'video':video, 'form':form}
 	return render(request, 'core/add_drink_video.html', context)
+
+
+def edit_drink(request, drink_id):
+	drink = Drink.objects.get(id=drink_id)
+
+	if request.method != 'POST':
+		# Initial request; pre-fill form with the current values
+		form = DrinkForm(instance=drink)
+	else:
+		# POST data submitted; process data.
+		form = DrinkForm(instance=drink, data=request.POST)
+		if form.is_valid():
+			form.save()
+			return redirect('core:video', user_id=request.user.id)
+
+	context = {'drink':drink, 'form':form}
+	return render(request, 'core/edit_drink.html', context)	
 
 def video(request, user_id):
 	entrees = [entree for entree in MainCourse.objects.all() if str(entree.menu.menu_owner) == str(request.user.email)]
@@ -320,12 +344,12 @@ def video(request, user_id):
 				break
 	for item in SideDishVideo.objects.all():
 		for side in SideDish.objects.all():
-			if str(item.main_course_item) == str(side):
+			if str(item.side_dish_item) == str(side):
 				has_video.append(side)
 				break
 	for item in DrinkVideo.objects.all():
 		for drink in Drink.objects.all():
-			if str(item.main_course_item) == str(drink):
+			if str(item.drink_item) == str(drink):
 				has_video.append(drink)
 				break
 	no_video = []
@@ -341,7 +365,7 @@ def video(request, user_id):
 		if drink not in has_video:
 			no_video.append(drink)
 	context = {'entrees':entrees, 'has_video':has_video, 'no_video':no_video,
-		'sides':sides}
+		'sides':sides, 'drinks':drinks}
 	return render(request, 'core/video.html', context)
 
 

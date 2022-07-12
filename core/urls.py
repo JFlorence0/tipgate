@@ -42,6 +42,13 @@ urlpatterns = [
 	# Edit a side dish
 	path('edit_side_dish/<int:side_id>/', views.edit_side_dish, name='edit_side_dish'),
 
+	# Add a drink to the menu
+	path('add_drink/<int:user_id>/', views.add_drink, name='add_drink'),
+	# Add video to a drink item
+	path('add_drink_video/<int:drink_id>/', views.add_drink_video, name='add_drink_video'),
+	# Edit a drink
+	path('edit_drink/<int:drink_id>/', views.edit_drink, name='edit_drink'),
+
 	# Add Video To Items
 	path('video/<int:user_id>/', views.video, name='video'),
 

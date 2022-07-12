@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+{% extends 'core/base.html' %}
+{% load bootstrap4 %}
+{% block navbar %}
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Video</title>
+</head>
+<body>
+<small><a href="{% url 'core:video' user.id %}">->Back</a></small>
+{% endblock navbar %}
+{% block content %}
+
+{% if video %}
+	<b>Video:</b><br>
+	<small><a href="{% url 'core:video' user.id %}">update video</a></small><br>
+
+	<video width='400' controls>
+	<source src='{{ MEDIA_URL }}{{ video }}' type='video/mp4'>
+	Your browser does not support the video tag.
+	</video>
+{% else %}
+{% endif %}
+
+	<form enctype="multipart/form-data" method="POST" action="">
+		{% csrf_token %}
+		{{ form.as_p }}
+	<input type="submit" value="Upload"/>
+	</form>
+
+{% endblock content %}
+</body>
+</html>

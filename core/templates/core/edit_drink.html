@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+{% extends 'core/base.html' %}
+{% load bootstrap4 %}
+{% block navbar %}
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title></title>
+</head>
+<body>
+<small><a href="{% url 'core:video' user.id %}">->Back</a></small>
+{% endblock navbar %}
+{% block content %}
+
+	<form action="{% url 'core:edit_drink' drink.id %}" method='post'>
+		{% csrf_token %}
+		{{ form.as_p }}
+		<button name="submit">Save changes</button>
+	</form>
+
+{% endblock content %}
+</body>
+</html>
