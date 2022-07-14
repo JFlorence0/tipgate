@@ -52,5 +52,32 @@ urlpatterns = [
 	# Add Video To Items
 	path('edit_menu/<int:user_id>/', views.edit_menu, name='edit_menu'),
 
+	# Create a custom menu
+	path('create_custom_menu/<int:user_id>', views.create_custom_menu, name='create_custom_menu'),
+	# View the custom menu
+	path('edit_custom_menu/<int:user_id>/', views.edit_custom_menu, name='edit_custom_menu'),
+	# Add entree to custom menu
+	path('add_entree_to_custom/<int:user_id>/', views.add_entree_to_custom, name='add_entree_to_custom'),
+	# Add side to custom menu
+	path('add_side_to_custom/<int:user_id>/', views.add_side_to_custom, name='add_side_to_custom'),
+	# Add drink to custom menu
+	path('add_drink_to_custom/<int:user_id>/', views.add_drink_to_custom, name='add_drink_to_custom'),
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 ]

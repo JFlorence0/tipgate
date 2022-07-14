@@ -103,12 +103,6 @@ class DrinkVideo(models.Model):
 	def __str__(self):
 		return f"{self.side_dish_item}"
 
-class CustomMenu(models.Model):
-	custom_menu_owner = models.OneToOneField(Venue, on_delete=models.CASCADE)
-
-	def __str__(self):
-		return f"{self.custom_branch_menu_owner}"
-
 
 class ServerLocation(models.Model):
 	VENUE_CHOICES = tuple([(venue.venue_name,venue.venue_name) for venue in Venue.objects.all()])
@@ -129,8 +123,65 @@ class CustomerOrder(models.Model):
 	def __str__(self):
 		return f"{self.entree}, {self.drink}"
 
+class CustomMenu(models.Model):
+	custom_menu_owner = models.OneToOneField(Venue, on_delete=models.CASCADE)
 
+	def __str__(self):
+		return f"{self.custom_menu_owner}"
 
+class CustomEntree(models.Model):
+	custom_menu = models.ForeignKey(CustomMenu, on_delete=models.CASCADE)
+	name = models.CharField(max_length=100)
+	ingredient1 = models.CharField(max_length=100, null=True, blank=True)
+	ingredient2 = models.CharField(max_length=100, null=True, blank=True)
+	ingredient3 = models.CharField(max_length=100, null=True, blank=True)
+	ingredient4 = models.CharField(max_length=100, null=True, blank=True)
+	ingredient5 = models.CharField(max_length=100, null=True, blank=True)
+	ingredient6 = models.CharField(max_length=100, null=True, blank=True)
+	ingredient7 = models.CharField(max_length=100, null=True, blank=True)
+	ingredient8 = models.CharField(max_length=100, null=True, blank=True)
+	ingredient9 = models.CharField(max_length=100, null=True, blank=True)
+	ingredient10 = models.CharField(max_length=100, null=True, blank=True)
+	description = models.TextField(null=True, blank=True)
+
+	def __str__(self):
+		return f"{self.name}"
+
+class CustomSideDish(models.Model):
+	menu = models.ForeignKey(CustomMenu, on_delete=models.CASCADE)
+	name = models.CharField(max_length=100)
+	ingredient1 = models.CharField(max_length=100, null=True, blank=True)
+	ingredient2 = models.CharField(max_length=100, null=True, blank=True)
+	ingredient3 = models.CharField(max_length=100, null=True, blank=True)
+	ingredient4 = models.CharField(max_length=100, null=True, blank=True)
+	ingredient5 = models.CharField(max_length=100, null=True, blank=True)
+	ingredient6 = models.CharField(max_length=100, null=True, blank=True)
+	ingredient7 = models.CharField(max_length=100, null=True, blank=True)
+	ingredient8 = models.CharField(max_length=100, null=True, blank=True)
+	ingredient9 = models.CharField(max_length=100, null=True, blank=True)
+	ingredient10 = models.CharField(max_length=100, null=True, blank=True)
+	description = models.TextField(null=True, blank=True)
+
+	def __str__(self):
+		return f"{self.name}"
+
+class CustomDrink(models.Model):
+	menu = models.ForeignKey(CustomMenu, on_delete=models.CASCADE)
+	name = models.CharField(max_length=100)
+	ingredient1 = models.CharField(max_length=100, null=True, blank=True)
+	ingredient2 = models.CharField(max_length=100, null=True, blank=True)
+	ingredient3 = models.CharField(max_length=100, null=True, blank=True)
+	ingredient4 = models.CharField(max_length=100, null=True, blank=True)
+	ingredient5 = models.CharField(max_length=100, null=True, blank=True)
+	ingredient6 = models.CharField(max_length=100, null=True, blank=True)
+	ingredient7 = models.CharField(max_length=100, null=True, blank=True)
+	ingredient8 = models.CharField(max_length=100, null=True, blank=True)
+	ingredient9 = models.CharField(max_length=100, null=True, blank=True)
+	ingredient10 = models.CharField(max_length=100, null=True, blank=True)
+	description = models.TextField(null=True, blank=True)
+
+	def __str__(self):
+		return f"{self.name}"
 
 
 

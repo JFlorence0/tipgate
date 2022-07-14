@@ -2,10 +2,14 @@ from django.shortcuts import render, redirect
 from users.models import Account
 
 from .models import Venue, CustomerLocation, Menu, MainCourse, MainCourseVideo
-from .models import SideDish, SideDishVideo, Drink, DrinkVideo
+from .models import SideDish, SideDishVideo, Drink, DrinkVideo, CustomMenu
 
 from .forms import VenueForm, CustomerLocationForm, MenuForm, MainCourseForm, MainCourseVideoForm
 from .forms import SideDishForm, SideDishVideoForm, DrinkForm, DrinkVideoForm
+from .forms import CustomMenuForm
+
+
+
 # Create your views here.
 def home(request):
 	""" Display the home page """
@@ -366,7 +370,44 @@ def edit_menu(request, user_id):
 		'sides':sides, 'drinks':drinks}
 	return render(request, 'core/edit_menu.html', context)
 
+def create_custom_menu(request, user_id):
+	user = Account.objects.get(id=user_id)
+	venue_instance = [venue for venue in Venue.objects.all() if str(venue.owner) == str(request.user.email)]
+	if venue_instance:
+		venue_instance = venue_instance[0]
+	if request.method != 'POST':
+		# No data submitted; create a blank form.
+		form = CustomMenuForm()
+	else:
+		# POST data submitted; process data.
+		form = CustomMenuForm(data=request.POST)
+		if form.is_valid():
+			venue_custom_menu = form.save(commit=False)
+			venue_custom_menu.owner = user
+			venue_custom_menu.save()
+			return redirect('core:create_custom_menu', user_id)
+	context = {'user':user, 'form':form}
+	return render(request, 'core/create_custom_menu.html', context)
 
+def edit_custom_menu(request, user_id):
+	user = Account.objects.get(id=user_id)
+	context = {'user':user}
+	return render(request, 'core/edit_custom_menu.html', context)
+
+def add_entree_to_custom(request, user_id):
+	user = Account.objects.get(id=user_id)
+	context = {'user':user}
+	return render(request, 'core/add_entree_to_custom.html', context)
+
+def add_side_to_custom(request, user_id):
+	user = Account.objects.get(id=user_id)
+	context = {'user':user}
+	return render(request, 'core/add_side_to_custom.html', context)
+
+def add_drink_to_custom(request, user_id):
+	user = Account.objects.get(id=user_id)
+	context = {'user':user}
+	return render(request, 'core/add_drink_to_custom.html', context)
 
 
 

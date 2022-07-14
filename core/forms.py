@@ -1,6 +1,7 @@
 from django import forms
 from .models import Venue, CustomerLocation, Menu, SideDish, Drink
 from .models import MainCourse, MainCourseVideo, SideDishVideo, DrinkVideo
+from .models import CustomMenu
 
 class VenueForm(forms.ModelForm):
 
@@ -61,6 +62,13 @@ class DrinkVideoForm(forms.ModelForm):
 	class Meta:
 		model = DrinkVideo
 		fields = ('drink_item', 'video')
+
+class CustomMenuForm(forms.ModelForm):
+
+	class Meta:
+		model = CustomMenu
+		fields = ('custom_menu_owner',)
+		labels = {'custom_menu_owner': 'Choose Venue'}
 
 
 

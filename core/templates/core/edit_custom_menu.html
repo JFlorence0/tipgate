@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+{% extends 'core/base.html' %}
+{% load bootstrap5 %}
+{% block navbar %}
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title></title>
+</head>
+<body>
+<small><a href="{% url 'core:home' %}">->Back</a></small><br>
+{% endblock navbar %}
+{% block content %}
+{% if no_video %}
+	<h5>These Items do not have video</h5>
+{% else %}
+{% endif %}
+{% for item in no_video %}
+	<p><b>{{ item }}</b><br>
+
+
+{% empty %}
+	<p>You're all set! All of your menu items have video.</p>
+{% endfor %}
+<h3>Entrees</h3>
+<a href="{% url 'core:add_entree_to_custom' user.id %}">Add entree</a>
+<div class="accordion" id="accordionExample">
+	{% for entree in entrees %}
+  <div class="accordion-item">
+    <h2 class="accordion-header" id="entree{{ entree.id }}">
+      <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+        {{ entree }}
+      </button>
+    </h2>
+    <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="entree{{ entree.id }}" data-bs-parent="#accordionExample">
+      <div class="accordion-body">
+      	<small><a href="{% url 'core:add_main_course_video' entree.id %}">Update/View Video</a></small><br>
+    		<small><a href="{% url 'core:edit_main_course' entree.id %}">Edit Ingredients/Description</a></small><br>
+    		<small><a href="">Remove item from menu</a></small><br><br>
+        <strong>{{ entree.name }}:</strong> {{ entree.description }}.<br> Ingredients:<br>{{ entree.ingredient1 }}, {{ entree.ingredient2 }}, {{ entree.ingredient3 }}, {{ entree.ingredient4 }}
+      </div>
+    </div>
+  </div>
+  {% empty %}
+  {% endfor %}
+</div>
+
+<h3>Sides</h3>
+<a href="{% url 'core:add_side_to_custom' user.id %}">Add side</a>
+<div class="accordion" id="accordionExample">
+	{% for side in sides %}
+  <div class="accordion-item">
+    <h2 class="accordion-header" id="side{{ side.id }}">
+      <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+        {{ side }}
+      </button>
+    </h2>
+    <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="side{{ side.id }}" data-bs-parent="#accordionExample">
+      <div class="accordion-body">
+      	<small><a href="{% url 'core:add_side_dish_video' side.id %}">Update/View Video</a></small><br>
+    		<small><a href="{% url 'core:edit_side_dish' side.id %}">Edit Ingredients/Description</a></small><br>
+    		<small><a href="">Remove item from menu</a></small><br><br>
+        <strong>{{ side.name }}:</strong> {{ side.description }}.<br> Ingredients:<br>{{ side.ingredient1 }}, {{ side.ingredient2 }}, {{ side.ingredient3 }}, {{ side.ingredient4 }}
+      </div>
+    </div>
+  </div>
+  {% empty %}
+  {% endfor %}
+</div>
+
+<h3>Drinks</h3>
+<a href="{% url 'core:add_drink_to_custom' user.id %}">Add drink</a>
+<div class="accordion" id="accordionExample">
+	{% for drink in drinks %}
+  <div class="accordion-item">
+    <h2 class="accordion-header" id="drink{{ drink.id }}">
+      <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+        {{ drink }}
+      </button>
+    </h2>
+    <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="drink{{ drink.id }}" data-bs-parent="#accordionExample">
+      <div class="accordion-body">
+      	<small><a href="{% url 'core:add_drink_video' drink.id %}">Update/View Video</a></small><br>
+    		<small><a href="{% url 'core:edit_drink' drink.id %}">Edit Ingredients/Description</a></small><br>
+    		<small><a href="">Remove item from menu</a></small><br><br>
+        <strong>{{ side.name }}</strong> {{ drink.description }}<br> Ingredients:<br>{{ drink.ingredient1 }}, {{ drink.ingredient2 }}, {{ drink.ingredient3 }}, {{ drink.ingredient4 }}
+      </div>
+    </div>
+  </div>
+  {% empty %}
+  {% endfor %}
+</div>
+
+
+{% endblock content %}
+</body>
+</html>

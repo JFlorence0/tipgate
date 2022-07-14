@@ -37,10 +37,10 @@
   					<div class="col-sm-6" >
     					<div class="card text-center">
       						<div class="card-body">
-        						<h5 class="card-title">View Custom Menu</h5>
+        						<h5 class="card-title">Create Custom Menu</h5>
         						<small class="card-text"><em>Custom menu for a specific location</em></small><br><br>
         						<p class="card-text">Create menus or add items that may be seasonal here.</p><br>
-        						<a href="{% url 'core:venue_menu_view' user.id %}" class="btn btn-primary">View Custom Menu</a>
+        						<a href="{% url 'core:create_custom_menu' user.id %}" class="btn btn-primary">Create Custom Menu</a>
       						</div>
     					</div>
   					</div>
@@ -51,6 +51,16 @@
         					<h5 class="card-title">Edit Base Menu</h5>
         					<p class="card-text">Add/remove items from the base menu. Add video to your menu items for a dynamic customer experience.</p>
         					<a href="{% url 'core:edit_menu' user.id %}" class="btn btn-primary">Edit Base Menu</a>
+      					</div>
+   					</div>
+  				</div>
+
+  				<div class="col-sm-6" >
+    				<div class="card text-center">
+      					<div class="card-body">
+        					<h5 class="card-title">View Custom Menu</h5>
+        					<p class="card-text">View custom menu for a specific location</p>
+        					<a href="{% url 'core:edit_custom_menu' user.id %}" class="btn btn-primary">Edit Custom Menu</a>
       					</div>
    					</div>
   				</div>
