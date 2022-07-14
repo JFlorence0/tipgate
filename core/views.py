@@ -3,10 +3,11 @@ from users.models import Account
 
 from .models import Venue, CustomerLocation, Menu, MainCourse, MainCourseVideo
 from .models import SideDish, SideDishVideo, Drink, DrinkVideo, CustomMenu
+from .models import CustomEntree, CustomSideDish, CustomDrink
 
 from .forms import VenueForm, CustomerLocationForm, MenuForm, MainCourseForm, MainCourseVideoForm
 from .forms import SideDishForm, SideDishVideoForm, DrinkForm, DrinkVideoForm
-from .forms import CustomMenuForm
+from .forms import CustomMenuForm, CustomEntreeForm, CustomSideDishForm, CustomDrinkForm
 
 
 
@@ -391,24 +392,71 @@ def create_custom_menu(request, user_id):
 
 def edit_custom_menu(request, user_id):
 	user = Account.objects.get(id=user_id)
-	context = {'user':user}
+	entrees = [entree for entree in CustomEntree.objects.all() if str(entree.custom_menu.custom_menu_owner.owner) == str(request.user.email)]
+	sides = [side for side in CustomSideDish.objects.all() if str(side.custom_menu.custom_menu_owner.owner) == str(request.user.email)]
+	drinks = [drink for drink in CustomDrink.objects.all() if str(drink.custom_menu.custom_menu_owner.owner) == str(request.user.email)]
+	context = {'user':user, 'entrees':entrees, 'sides':sides, 'drinks':drinks
+		}
 	return render(request, 'core/edit_custom_menu.html', context)
 
-def add_entree_to_custom(request, user_id):
-	user = Account.objects.get(id=user_id)
-	context = {'user':user}
-	return render(request, 'core/add_entree_to_custom.html', context)
 
-def add_side_to_custom(request, user_id):
+def add_custom_entree(request, user_id):
 	user = Account.objects.get(id=user_id)
-	context = {'user':user}
-	return render(request, 'core/add_side_to_custom.html', context)
+	custom_menu_instance = [menu for menu in CustomMenu.objects.all() if str(menu.custom_menu_owner.owner) == str(request.user.email)]
+	custom_menu_instance = custom_menu_instance[-1]
 
-def add_drink_to_custom(request, user_id):
+	if request.method != 'POST':
+		# No data submitted; create a blank form.
+		form = CustomEntreeForm()
+	else:
+		# POST data submitted; process data.
+		form = CustomEntreeForm(data=request.POST)
+		if form.is_valid():
+			entree = form.save(commit=False)
+			entree.custom_menu = custom_menu_instance
+			entree.save()
+			return redirect('core:add_custom_entree', user_id=user.id)
+	context = {'user':user, 'form':form}
+	return render(request, 'core/add_custom_entree.html', context)
+
+
+def add_custom_side(request, user_id):
 	user = Account.objects.get(id=user_id)
-	context = {'user':user}
-	return render(request, 'core/add_drink_to_custom.html', context)
+	custom_menu_instance = [menu for menu in CustomMenu.objects.all() if str(menu.custom_menu_owner.owner) == str(request.user.email)]
+	custom_menu_instance = custom_menu_instance[-1]
 
+	if request.method != 'POST':
+		# No data submitted; create a blank form.
+		form = CustomSideDishForm()
+	else:
+		# POST data submitted; process data.
+		form = CustomSideDishForm(data=request.POST)
+		if form.is_valid():
+			side_dish = form.save(commit=False)
+			side_dish.custom_menu = custom_menu_instance
+			side_dish.save()
+			return redirect('core:add_custom_side', user_id=user.id)
+	context = {'user':user, 'form':form}
+	return render(request, 'core/add_custom_side.html', context)
+
+def add_custom_drink(request, user_id):
+	user = Account.objects.get(id=user_id)
+	custom_menu_instance = [menu for menu in CustomMenu.objects.all() if str(menu.custom_menu_owner.owner) == str(request.user.email)]
+	custom_menu_instance = custom_menu_instance[-1]
+
+	if request.method != 'POST':
+		# No data submitted; create a blank form.
+		form = CustomDrinkForm()
+	else:
+		# POST data submitted; process data.
+		form = CustomDrinkForm(data=request.POST)
+		if form.is_valid():
+			drink = form.save(commit=False)
+			drink.custom_menu = custom_menu_instance
+			drink.save()
+			return redirect('core:add_custom_drink', user_id=user.id)
+	context = {'user':user, 'form':form}
+	return render(request, 'core/add_custom_drink.html', context)
 
 
 

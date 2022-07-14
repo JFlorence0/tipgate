@@ -57,11 +57,11 @@ urlpatterns = [
 	# View the custom menu
 	path('edit_custom_menu/<int:user_id>/', views.edit_custom_menu, name='edit_custom_menu'),
 	# Add entree to custom menu
-	path('add_entree_to_custom/<int:user_id>/', views.add_entree_to_custom, name='add_entree_to_custom'),
+	path('add_custom_entree/<int:user_id>/', views.add_custom_entree, name='add_custom_entree'),
 	# Add side to custom menu
-	path('add_side_to_custom/<int:user_id>/', views.add_side_to_custom, name='add_side_to_custom'),
+	path('add_custom_side/<int:user_id>/', views.add_custom_side, name='add_custom_side'),
 	# Add drink to custom menu
-	path('add_drink_to_custom/<int:user_id>/', views.add_drink_to_custom, name='add_drink_to_custom'),
+	path('add_custom_drink/<int:user_id>/', views.add_custom_drink, name='add_custom_drink'),
 
 
 

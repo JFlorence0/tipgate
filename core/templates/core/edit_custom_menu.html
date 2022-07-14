@@ -24,7 +24,7 @@
 	<p>You're all set! All of your menu items have video.</p>
 {% endfor %}
 <h3>Entrees</h3>
-<a href="{% url 'core:add_entree_to_custom' user.id %}">Add entree</a>
+<a href="{% url 'core:add_custom_entree' user.id %}">Add entree</a>
 <div class="accordion" id="accordionExample">
 	{% for entree in entrees %}
   <div class="accordion-item">
@@ -47,7 +47,7 @@
 </div>
 
 <h3>Sides</h3>
-<a href="{% url 'core:add_side_to_custom' user.id %}">Add side</a>
+<a href="{% url 'core:add_custom_side' user.id %}">Add side</a>
 <div class="accordion" id="accordionExample">
 	{% for side in sides %}
   <div class="accordion-item">
@@ -70,7 +70,7 @@
 </div>
 
 <h3>Drinks</h3>
-<a href="{% url 'core:add_drink_to_custom' user.id %}">Add drink</a>
+<a href="{% url 'core:add_custom_drink' user.id %}">Add drink</a>
 <div class="accordion" id="accordionExample">
 	{% for drink in drinks %}
   <div class="accordion-item">

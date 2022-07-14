@@ -148,7 +148,7 @@ class CustomEntree(models.Model):
 		return f"{self.name}"
 
 class CustomSideDish(models.Model):
-	menu = models.ForeignKey(CustomMenu, on_delete=models.CASCADE)
+	custom_menu = models.ForeignKey(CustomMenu, on_delete=models.CASCADE)
 	name = models.CharField(max_length=100)
 	ingredient1 = models.CharField(max_length=100, null=True, blank=True)
 	ingredient2 = models.CharField(max_length=100, null=True, blank=True)
@@ -166,7 +166,7 @@ class CustomSideDish(models.Model):
 		return f"{self.name}"
 
 class CustomDrink(models.Model):
-	menu = models.ForeignKey(CustomMenu, on_delete=models.CASCADE)
+	custom_menu = models.ForeignKey(CustomMenu, on_delete=models.CASCADE)
 	name = models.CharField(max_length=100)
 	ingredient1 = models.CharField(max_length=100, null=True, blank=True)
 	ingredient2 = models.CharField(max_length=100, null=True, blank=True)

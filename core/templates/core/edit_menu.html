@@ -47,6 +47,7 @@
 </div>
 
 <h3>Sides</h3>
+<a href="{% url 'core:add_side_dish' user.id %}">Add side</a>
 <div class="accordion" id="accordionExample">
 	{% for side in sides %}
   <div class="accordion-item">

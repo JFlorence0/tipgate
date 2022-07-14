@@ -13,7 +13,7 @@
 {% block content %}
 <small><a href="{% url 'core:edit_custom_menu' user.id %}">->Back</a></small>
 
-	<form action="{% url 'core:add_side_to_custom' user.id %}" method="post">
+	<form action="{% url 'core:add_custom_side' user.id %}" method="post">
 		{% csrf_token %}
 		{{ form.as_p }}
 		<button name='submit'>Submit</button>

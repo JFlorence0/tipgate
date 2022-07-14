@@ -1,7 +1,7 @@
 from django import forms
 from .models import Venue, CustomerLocation, Menu, SideDish, Drink
 from .models import MainCourse, MainCourseVideo, SideDishVideo, DrinkVideo
-from .models import CustomMenu
+from .models import CustomMenu, CustomEntree, CustomSideDish, CustomDrink
 
 class VenueForm(forms.ModelForm):
 
@@ -69,6 +69,33 @@ class CustomMenuForm(forms.ModelForm):
 		model = CustomMenu
 		fields = ('custom_menu_owner',)
 		labels = {'custom_menu_owner': 'Choose Venue'}
+
+class CustomEntreeForm(forms.ModelForm):
+
+	class Meta:
+		model = CustomEntree
+		fields = ('name', 'ingredient1', 'ingredient2', 'ingredient3',
+		 	'ingredient4', 'ingredient5', 'ingredient6', 'ingredient7',
+		 	 'ingredient8', 'ingredient9', 'ingredient10', 'description')
+
+class CustomSideDishForm(forms.ModelForm):
+
+	class Meta:
+		model = CustomSideDish
+		fields = ('name', 'ingredient1', 'ingredient2', 'ingredient3',
+		 	'ingredient4', 'ingredient5', 'ingredient6', 'ingredient7',
+		 	 'ingredient8', 'ingredient9', 'ingredient10', 'description')
+
+class CustomDrinkForm(forms.ModelForm):
+
+	class Meta:
+		model = CustomDrink
+		fields = ('name', 'ingredient1', 'ingredient2', 'ingredient3',
+		 	'ingredient4', 'ingredient5', 'ingredient6', 'ingredient7',
+		 	 'ingredient8', 'ingredient9', 'ingredient10', 'description')
+
+
+
 
 
 
