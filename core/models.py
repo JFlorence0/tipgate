@@ -183,8 +183,26 @@ class CustomDrink(models.Model):
 	def __str__(self):
 		return f"{self.name}"
 
+class CustomEntreeVideo(models.Model):
+	custom_entree = models.ForeignKey(CustomEntree, on_delete=models.CASCADE)
+	video = models.FileField(upload_to='videos/', null=True, verbose_name="")
 
+	def __str__(self):
+		return f"{self.custom_entree}"
 
+class CustomSideDishVideo(models.Model):
+	custom_side_dish = models.ForeignKey(CustomSideDish, on_delete=models.CASCADE)
+	video = models.FileField(upload_to='videos/', null=True, verbose_name="")
+
+	def __str__(self):
+		return f"{self.custom_side_dish}"
+
+class CustomDrinkVideo(models.Model):
+	custom_drink = models.ForeignKey(CustomDrink, on_delete=models.CASCADE)
+	video = models.FileField(upload_to='videos/', null=True, verbose_name="")
+
+	def __str__(self):
+		return f"{self.custom_drink}"
 
 
 

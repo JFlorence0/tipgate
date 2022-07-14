@@ -2,6 +2,7 @@ from django import forms
 from .models import Venue, CustomerLocation, Menu, SideDish, Drink
 from .models import MainCourse, MainCourseVideo, SideDishVideo, DrinkVideo
 from .models import CustomMenu, CustomEntree, CustomSideDish, CustomDrink
+from .models import CustomEntreeVideo, CustomSideDishVideo, CustomDrinkVideo
 
 class VenueForm(forms.ModelForm):
 
@@ -78,6 +79,12 @@ class CustomEntreeForm(forms.ModelForm):
 		 	'ingredient4', 'ingredient5', 'ingredient6', 'ingredient7',
 		 	 'ingredient8', 'ingredient9', 'ingredient10', 'description')
 
+class CustomEntreeVideoForm(forms.ModelForm):
+
+	class Meta:
+		model = CustomEntreeVideo
+		fields = ('custom_entree', 'video')
+
 class CustomSideDishForm(forms.ModelForm):
 
 	class Meta:
@@ -86,6 +93,12 @@ class CustomSideDishForm(forms.ModelForm):
 		 	'ingredient4', 'ingredient5', 'ingredient6', 'ingredient7',
 		 	 'ingredient8', 'ingredient9', 'ingredient10', 'description')
 
+class CustomSideDishVideoForm(forms.ModelForm):
+
+	class Meta:
+		model = CustomSideDishVideo
+		fields = ('custom_side_dish', 'video')
+
 class CustomDrinkForm(forms.ModelForm):
 
 	class Meta:
@@ -93,6 +106,12 @@ class CustomDrinkForm(forms.ModelForm):
 		fields = ('name', 'ingredient1', 'ingredient2', 'ingredient3',
 		 	'ingredient4', 'ingredient5', 'ingredient6', 'ingredient7',
 		 	 'ingredient8', 'ingredient9', 'ingredient10', 'description')
+
+class CustomDrinkVideoForm(forms.ModelForm):
+
+	class Meta:
+		model = CustomDrinkVideo
+		fields = ('custom_drink', 'video')
 
 
 

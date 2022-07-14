@@ -35,7 +35,7 @@
     </h2>
     <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="entree{{ entree.id }}" data-bs-parent="#accordionExample">
       <div class="accordion-body">
-      	<small><a href="{% url 'core:add_main_course_video' entree.id %}">Update/View Video</a></small><br>
+      	<small><a href="{% url 'core:add_custom_entree_video' entree.id %}">Update/View Video</a></small><br>
     		<small><a href="{% url 'core:edit_main_course' entree.id %}">Edit Ingredients/Description</a></small><br>
     		<small><a href="">Remove item from menu</a></small><br><br>
         <strong>{{ entree.name }}:</strong> {{ entree.description }}.<br> Ingredients:<br>{{ entree.ingredient1 }}, {{ entree.ingredient2 }}, {{ entree.ingredient3 }}, {{ entree.ingredient4 }}
@@ -58,7 +58,7 @@
     </h2>
     <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="side{{ side.id }}" data-bs-parent="#accordionExample">
       <div class="accordion-body">
-      	<small><a href="{% url 'core:add_side_dish_video' side.id %}">Update/View Video</a></small><br>
+      	<small><a href="{% url 'core:add_custom_side_video' side.id %}">Update/View Video</a></small><br>
     		<small><a href="{% url 'core:edit_side_dish' side.id %}">Edit Ingredients/Description</a></small><br>
     		<small><a href="">Remove item from menu</a></small><br><br>
         <strong>{{ side.name }}:</strong> {{ side.description }}.<br> Ingredients:<br>{{ side.ingredient1 }}, {{ side.ingredient2 }}, {{ side.ingredient3 }}, {{ side.ingredient4 }}

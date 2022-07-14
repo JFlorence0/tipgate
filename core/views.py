@@ -4,10 +4,12 @@ from users.models import Account
 from .models import Venue, CustomerLocation, Menu, MainCourse, MainCourseVideo
 from .models import SideDish, SideDishVideo, Drink, DrinkVideo, CustomMenu
 from .models import CustomEntree, CustomSideDish, CustomDrink
+from .models import CustomEntreeVideo, CustomSideDishVideo, CustomDrinkVideo
 
 from .forms import VenueForm, CustomerLocationForm, MenuForm, MainCourseForm, MainCourseVideoForm
 from .forms import SideDishForm, SideDishVideoForm, DrinkForm, DrinkVideoForm
 from .forms import CustomMenuForm, CustomEntreeForm, CustomSideDishForm, CustomDrinkForm
+from .forms import CustomEntreeVideoForm, CustomSideDishVideoForm, CustomDrinkVideoForm
 
 
 
@@ -419,6 +421,24 @@ def add_custom_entree(request, user_id):
 	context = {'user':user, 'form':form}
 	return render(request, 'core/add_custom_entree.html', context)
 
+# Add a video for the custom entree
+def add_custom_entree_video(request, entree_id):
+	custom_entree = CustomEntree.objects.get(id=entree_id)
+	video = [item.video for item in CustomEntreeVideo.objects.all() if str(item.custom_entree.name) == str(custom_entree)]
+	if video:
+		video = video[-1]
+	if request.method != 'POST':
+		# No data submitted; create a blank form.
+		form = CustomEntreeVideoForm()
+	else:
+		# POST data submitted; process data.
+		form = CustomEntreeVideoForm(data=request.POST, files=request.FILES)
+		if form.is_valid():
+			form.save()
+			return redirect('core:home')
+	context = {'custom_entree':custom_entree, 'form':form, 'video':video}
+	return render(request, 'core/add_custom_entree_video.html', context)
+
 
 def add_custom_side(request, user_id):
 	user = Account.objects.get(id=user_id)
@@ -439,6 +459,24 @@ def add_custom_side(request, user_id):
 	context = {'user':user, 'form':form}
 	return render(request, 'core/add_custom_side.html', context)
 
+# Add a video for the custom side
+def add_custom_side_video(request, entree_id):
+	custom_side = CustomSideDish.objects.get(id=entree_id)
+	video = [item.video for item in CustomSideDishVideo.objects.all() if str(item.custom_entree.name) == str(custom_entree)]
+	if video:
+		video = video[-1]
+	if request.method != 'POST':
+		# No data submitted; create a blank form.
+		form = CustomSideDishVideoForm()
+	else:
+		# POST data submitted; process data.
+		form = CustomSideDishVideoForm(data=request.POST, files=request.FILES)
+		if form.is_valid():
+			form.save()
+			return redirect('core:home')
+	context = {'custom_side':custom_side, 'form':form, 'video':video}
+	return render(request, 'core/add_custom_side_video.html', context)
+
 def add_custom_drink(request, user_id):
 	user = Account.objects.get(id=user_id)
 	custom_menu_instance = [menu for menu in CustomMenu.objects.all() if str(menu.custom_menu_owner.owner) == str(request.user.email)]
@@ -457,6 +495,26 @@ def add_custom_drink(request, user_id):
 			return redirect('core:add_custom_drink', user_id=user.id)
 	context = {'user':user, 'form':form}
 	return render(request, 'core/add_custom_drink.html', context)
+
+# Add a video for the custom side
+def add_custom_drink_video(request, entree_id):
+	custom_drink = CustomDrink.objects.get(id=entree_id)
+	video = [item.video for item in CustomDrinkVideo.objects.all() if str(item.custom_drink.name) == str(custom_drink)]
+	if video:
+		video = video[-1]
+	if request.method != 'POST':
+		# No data submitted; create a blank form.
+		form = CustomDrinkVideoForm()
+	else:
+		# POST data submitted; process data.
+		form = CustomDrinkVideoForm(data=request.POST, files=request.FILES)
+		if form.is_valid():
+			form.save()
+			return redirect('core:home')
+	context = {'custom_drink':custom_drink, 'form':form, 'video':video}
+	return render(request, 'core/add_custom_drink_video.html', context)
+
+
 
 
 
