@@ -204,6 +204,11 @@ class CustomDrinkVideo(models.Model):
 	def __str__(self):
 		return f"{self.custom_drink}"
 
-
+class select_custom_menu(models.Model):
+	VENUE_CHOICES = tuple([(venue.venue_name,venue.venue_name) for venue in Venue.objects.all()])
+	owner = models.OneToOneField(Account, on_delete=models.CASCADE)
+	venue = models.CharField(max_length=100, choices=VENUE_CHOICES)
+	def __str__(self):
+		return f"{self.venue}"
 
 
