@@ -58,18 +58,24 @@ urlpatterns = [
 	path('edit_custom_menu/<int:user_id>/', views.edit_custom_menu, name='edit_custom_menu'),
 	# Add entree to custom menu
 	path('add_custom_entree/<int:user_id>/', views.add_custom_entree, name='add_custom_entree'),
+	# Edit custom entree
+	path('edit_custom_entree/<int:entree_id>/', views.edit_custom_entree, name='edit_custom_entree'),
 	# Add video to custom entree
 	path('add_custom_entree_video/<int:entree_id>/', views.add_custom_entree_video, name='add_custom_entree_video'),
 
 
 	# Add side to custom menu
 	path('add_custom_side/<int:user_id>/', views.add_custom_side, name='add_custom_side'),
+	# Edit custom side
+	path('edit_custom_side/<int:side_id>/', views.edit_custom_side, name='edit_custom_side'),
 	# Add video to custom entree
-	path('add_custom_side_video/<int:entree_id>/', views.add_custom_side_video, name='add_custom_side_video'),
+	path('add_custom_side_video/<int:side_id>/', views.add_custom_side_video, name='add_custom_side_video'),
 	# Add drink to custom menu
 	path('add_custom_drink/<int:user_id>/', views.add_custom_drink, name='add_custom_drink'),
+	# Edit custom drink
+	path('edit_custom_drink/<int:drink_id>/', views.edit_custom_drink, name='edit_custom_drink'),
 	# Add video to custom entree
-	path('add_custom_drink_video/<int:entree_id>/', views.add_custom_drink_video, name='add_custom_drink_video'),
+	path('add_custom_drink_video/<int:drink_id>/', views.add_custom_drink_video, name='add_custom_drink_video'),
 
 
 

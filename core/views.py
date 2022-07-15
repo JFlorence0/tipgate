@@ -421,6 +421,23 @@ def add_custom_entree(request, user_id):
 	context = {'user':user, 'form':form}
 	return render(request, 'core/add_custom_entree.html', context)
 
+def edit_custom_entree(request, entree_id):
+	entree = CustomEntree.objects.get(id=entree_id)
+
+	if request.method != 'POST':
+		# Initial request; pre-fill form with the current values
+		form = CustomEntreeForm(instance=entree)
+	else:
+		# POST data submitted; process data.
+		form = CustomEntreeForm(instance=entree, data=request.POST)
+		if form.is_valid():
+			form.save()
+			return redirect('core:edit_custom_menu', user_id=request.user.id)
+
+	context = {'entree':entree, 'form':form}
+	return render(request, 'core/edit_custom_entree.html', context)
+
+
 # Add a video for the custom entree
 def add_custom_entree_video(request, entree_id):
 	custom_entree = CustomEntree.objects.get(id=entree_id)
@@ -459,6 +476,22 @@ def add_custom_side(request, user_id):
 	context = {'user':user, 'form':form}
 	return render(request, 'core/add_custom_side.html', context)
 
+def edit_custom_side(request, side_id):
+	side = CustomSideDish.objects.get(id=side_id)
+
+	if request.method != 'POST':
+		# Initial request; pre-fill form with the current values
+		form = CustomSideDishForm(instance=side)
+	else:
+		# POST data submitted; process data.
+		form = CustomSideDishForm(instance=side, data=request.POST)
+		if form.is_valid():
+			form.save()
+			return redirect('core:edit_custom_menu', user_id=request.user.id)
+
+	context = {'side':side, 'form':form}
+	return render(request, 'core/edit_custom_side.html', context)
+
 # Add a video for the custom side
 def add_custom_side_video(request, entree_id):
 	custom_side = CustomSideDish.objects.get(id=entree_id)
@@ -476,6 +509,7 @@ def add_custom_side_video(request, entree_id):
 			return redirect('core:home')
 	context = {'custom_side':custom_side, 'form':form, 'video':video}
 	return render(request, 'core/add_custom_side_video.html', context)
+
 
 def add_custom_drink(request, user_id):
 	user = Account.objects.get(id=user_id)
@@ -495,6 +529,23 @@ def add_custom_drink(request, user_id):
 			return redirect('core:add_custom_drink', user_id=user.id)
 	context = {'user':user, 'form':form}
 	return render(request, 'core/add_custom_drink.html', context)
+
+def edit_custom_drink(request, drink_id):
+	drink = CustomDrink.objects.get(id=drink_id)
+
+	if request.method != 'POST':
+		# Initial request; pre-fill form with the current values
+		form = CustomDrinkForm(instance=drink)
+	else:
+		# POST data submitted; process data.
+		form = CustomDrinkForm(instance=drink, data=request.POST)
+		if form.is_valid():
+			form.save()
+			return redirect('core:edit_menu', user_id=request.user.id)
+
+	context = {'drink':drink, 'form':form}
+	return render(request, 'core/edit_custom_drink.html', context)	
+
 
 # Add a video for the custom side
 def add_custom_drink_video(request, entree_id):
