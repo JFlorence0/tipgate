@@ -1,8 +1,10 @@
 from django import forms
-from .models import Venue, CustomerLocation, Menu, SideDish, Drink
-from .models import MainCourse, MainCourseVideo, SideDishVideo, DrinkVideo
-from .models import CustomMenu, CustomEntree, CustomSideDish, CustomDrink
-from .models import CustomEntreeVideo, CustomSideDishVideo, CustomDrinkVideo
+from .models import (
+	Venue, CustomerLocation, Menu, SideDish, Drink, 
+	MainCourse, MainCourseVideo, SideDishVideo, DrinkVideo,
+	CustomMenu, CustomEntree, CustomSideDish, CustomDrink,
+	CustomEntreeVideo, CustomSideDishVideo, CustomDrinkVideo, SelectCustomMenu)
+
 
 class VenueForm(forms.ModelForm):
 
@@ -112,6 +114,12 @@ class CustomDrinkVideoForm(forms.ModelForm):
 	class Meta:
 		model = CustomDrinkVideo
 		fields = ('custom_drink', 'video')
+
+class SelectCustomMenuForm(forms.ModelForm):
+
+	class Meta:
+		model = SelectCustomMenu
+		fields = ('venue', 'owner')
 
 
 

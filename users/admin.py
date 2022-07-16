@@ -1,9 +1,10 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 from .models import Account
-from core.models import Venue, CustomerLocation, Menu, MainCourse, CustomMenu
-from core.models import ServerLocation, MainCourseVideo, SideDish, SideDishVideo
-from core.models import Drink, DrinkVideo, CustomMenu, CustomEntree, CustomSideDish, CustomDrink
+from core.models import (Venue, CustomerLocation, Menu, MainCourse, CustomMenu,
+	ServerLocation, MainCourseVideo, SideDish, SideDishVideo, Drink, DrinkVideo, 
+	CustomMenu, CustomEntree, CustomSideDish, CustomDrink, SelectCustomMenu)
+
 
 # Register your models here.
 class AccountAdmin(UserAdmin):
@@ -31,3 +32,4 @@ admin.site.register(CustomMenu)
 admin.site.register(CustomEntree)
 admin.site.register(CustomSideDish)
 admin.site.register(CustomDrink)
+admin.site.register(SelectCustomMenu)

@@ -1,15 +1,16 @@
 from django.shortcuts import render, redirect
 from users.models import Account
 
-from .models import Venue, CustomerLocation, Menu, MainCourse, MainCourseVideo
-from .models import SideDish, SideDishVideo, Drink, DrinkVideo, CustomMenu
-from .models import CustomEntree, CustomSideDish, CustomDrink
-from .models import CustomEntreeVideo, CustomSideDishVideo, CustomDrinkVideo
+from .models import (
+	Venue, CustomerLocation, Menu, SideDish, Drink, 
+	MainCourse, MainCourseVideo, SideDishVideo, DrinkVideo,
+	CustomMenu, CustomEntree, CustomSideDish, CustomDrink,
+	CustomEntreeVideo, CustomSideDishVideo, CustomDrinkVideo, SelectCustomMenu)
 
 from .forms import VenueForm, CustomerLocationForm, MenuForm, MainCourseForm, MainCourseVideoForm
 from .forms import SideDishForm, SideDishVideoForm, DrinkForm, DrinkVideoForm
 from .forms import CustomMenuForm, CustomEntreeForm, CustomSideDishForm, CustomDrinkForm
-from .forms import CustomEntreeVideoForm, CustomSideDishVideoForm, CustomDrinkVideoForm
+from .forms import CustomEntreeVideoForm, CustomSideDishVideoForm, CustomDrinkVideoForm, SelectCustomMenuForm
 
 
 
@@ -335,7 +336,8 @@ def edit_drink(request, drink_id):
 			return redirect('core:edit_menu', user_id=request.user.id)
 
 	context = {'drink':drink, 'form':form}
-	return render(request, 'core/edit_drink.html', context)	
+	return render(request, 'core/edit_drink.html', context)
+
 
 def edit_menu(request, user_id):
 	entrees = [entree for entree in MainCourse.objects.all() if str(entree.menu.menu_owner) == str(request.user.email)]
@@ -392,13 +394,36 @@ def create_custom_menu(request, user_id):
 	context = {'user':user, 'form':form}
 	return render(request, 'core/create_custom_menu.html', context)
 
+def select_custom_menu(request, user_id):
+	user = Account.objects.get(id=user_id)
+	if request.method != 'POST':
+		# No data submitted; create a blank form.
+		form = SelectCustomMenuForm()
+	else:
+		# POST data submitted; process data.
+		form = SelectCustomMenuForm(data=request.POST)
+		if form.is_valid():
+			menu_selection = form.save(commit=False)
+			menu_selection.owner = user
+			menu_selection.save()
+			return redirect('core:edit_custom_menu', user_id)
+	context = {'user':user, 'form':form}
+	return render(request, 'core/select_custom_menu.html', context)
+
+
 def edit_custom_menu(request, user_id):
 	user = Account.objects.get(id=user_id)
-	entrees = [entree for entree in CustomEntree.objects.all() if str(entree.custom_menu.custom_menu_owner.owner) == str(request.user.email)]
-	sides = [side for side in CustomSideDish.objects.all() if str(side.custom_menu.custom_menu_owner.owner) == str(request.user.email)]
-	drinks = [drink for drink in CustomDrink.objects.all() if str(drink.custom_menu.custom_menu_owner.owner) == str(request.user.email)]
-	context = {'user':user, 'entrees':entrees, 'sides':sides, 'drinks':drinks
-		}
+	selected_venue = [menu.venue for menu in SelectCustomMenu.objects.all() if str(menu.owner) == str(request.user.email)]
+	if selected_venue:
+		selected_venue = selected_venue[-1]
+	print(selected_venue)
+	menu = [menu for menu in CustomMenu.objects.all() if str(menu.custom_menu_owner.venue_name) == str(selected_venue)]
+	if menu:
+		menu = menu[-1]
+	entrees = [entree for entree in CustomEntree.objects.all() if str(entree.custom_menu.custom_menu_owner.venue_name) == str(selected_venue)]
+	print(entrees)
+
+	context = {'user':user}
 	return render(request, 'core/edit_custom_menu.html', context)
 
 

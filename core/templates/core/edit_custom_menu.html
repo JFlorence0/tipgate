@@ -12,6 +12,13 @@
 <small><a href="{% url 'core:home' %}">->Back</a></small><br>
 {% endblock navbar %}
 {% block content %}
+
+  <form action="{% url 'core:edit_custom_menu' user.id %}" method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button name='submit'>Submit</button>
+    
+  </form>
 {% if no_video %}
 	<h5>These Items do not have video</h5>
 {% else %}

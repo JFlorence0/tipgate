@@ -77,6 +77,9 @@ urlpatterns = [
 	# Add video to custom entree
 	path('add_custom_drink_video/<int:drink_id>/', views.add_custom_drink_video, name='add_custom_drink_video'),
 
+	# Select a custom menu to view by selecting the location
+	path('select_custom_menu/<int:user_id>/', views.select_custom_menu, name='select_custom_menu'),
+
 
 
 
