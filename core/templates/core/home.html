@@ -1,101 +1,67 @@
-<!DOCTYPE html>
-<html>
 {% extends 'core/base.html' %}
-{% load bootstrap4 %}
-{% block navbar %}
-<head>
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>TipGate</title>
-</head>
-<body>
-	{% endblock navbar %}
-	{% block content %}
-	<p>Logged in as {{ user }}</p>
-	<!--User is logged in -->
-	{% if request.user.is_authenticated %}
-		<!--User is logged in and is a venue -->
-		{% if request.user.is_venue == True %}
-			<p>Welcome, {{ request.user.first_name }}, you are logged in as: {{ request.user.email }}.<br>
-			You are logged in as a venue and you have {{ num_venues }} registered.</p>
-			<p>If you own or manage multiple venues, you can register a new location here:<a href="{% url 'core:venue_form' user.id %}">
-			Register A Venue</a></p><br><br>
-			
-			<!--If the venue has a menu -->
-			{% if menu %}
-				<div class="row">
-  					<div class="col-sm-6">
-    					<div class="card text-center">
-      						<div class="card-body">
-        						<h5 class="card-title">View Base Menu</h5>
-        						<small class="card-text"><em>Default menu for all venues</em></small><br><br>
-        						<p class="card-text">View the base menu as the customers will see it</p>
-        						<a href="{% url 'core:venue_menu_view' user.id %}" class="btn btn-primary">View Base Menu</a>
-      						</div>
-    					</div>
-  					</div>
-				
-				 <div class="col-sm-6" >
-    				<div class="card text-center">
-      					<div class="card-body">
-        					<h5 class="card-title">Edit Base Menu</h5>
-        					<p class="card-text">Add/remove items from the base menu. Add video to your menu items for a dynamic customer experience.</p>
-        					<a href="{% url 'core:edit_menu' user.id %}" class="btn btn-primary">Edit Base Menu</a>
-      					</div>
-   					</div>
-  				</div>
 
-  				<div class="col-sm-6" >
-    				<div class="card text-center">
-      					<div class="card-body">
-        					<h5 class="card-title">Edit Custom Menu</h5>
-        					<p class="card-text">Edit custom menu for a specific location</p>
-        					<a href="{% url 'core:edit_custom_menu' user.id %}" class="btn btn-primary">Edit Custom Menu</a>
-      					</div>
-   					</div>
-  				</div>
+{% block content %}
+{% if request.user.is_venue %}
+<br><p>Welcome to Opto, you're logged in as a venue.</p><br>
 
-  				<div class="col-sm-6" >
-    				<div class="card text-center">
-      					<div class="card-body">
-        					<h5 class="card-title">View A Custom Menu</h5>
-        					<p class="card-text">Add/remove items from a custom menu. Add video to your menu items for a dynamic customer experience.</p>
-        					<a href="{% url 'core:select_custom_menu' user.id %}" class="btn btn-primary">View Custom Menu</a>
-      					</div>
-   					</div>
-  				</div>
-				</div>
-					
+<h4>How it works:</h4>
+<p>Add a venue:<br>
+<div class="row">
+  <div class="col-4">
+    <nav id="navbar-example3" class="h-100 flex-column align-items-stretch pe-4 border-end">
+      <nav class="nav nav-pills flex-column">
+        <a class="nav-link" href="#item-1">Register A Venue</a>
+        <a class="nav-link" href="#item-2">Base Menu</a>
+        <nav class="nav nav-pills flex-column">
+          <a class="nav-link ms-3 my-1" href="#item-2-1">Edit Base Menu</a>
+        </nav>
+        <a class="nav-link" href="#item-3">Custom Menu</a>
+        <nav class="nav nav-pills flex-column">
+          <a class="nav-link ms-3 my-1" href="#item-3-1">Item 3-1</a>
+          <a class="nav-link ms-3 my-1" href="#item-3-2">Item 3-2</a>
+        </nav>
+      </nav>
+    </nav>
+  </div>
 
-			<!--If the venue does not have a menu -->
-			{% else %}
-					<h4>Create A Base Menu</h4><br>
-					<small>The base menu will be the default menu to all of the owners' restaurants.</small><br>
-					<a href="{% url 'core:create_base_menu' user.id %}">Create Base Menu</a><br>
-			{% endif %}
+  <div class="col-8">
+    <div data-bs-spy="scroll" data-bs-target="#navbar-example3" data-bs-smooth-scroll="true" class="scrollspy-example-2" tabindex="0">
+      <div id="item-1">
+        <h5><a href="">Register a Venue</a></h5>
+        <p>If you have more than one location, add it <a href="{% url 'core:venue_form' user.id %}">here</a></p>
+      </div>
+      <div id="item-2">
+        <h5><a href="{% url 'core:create_base_menu' user.id %}">Create Base Menu</a></h5>
+        <p>The base menu will be your default menu for one or all of your locations. Create your base menu <a href="{% url 'core:create_base_menu' user.id %}">here</a></p>
+      </div>
+      <div id="item-2-1">
+        <h5><a href="{% url 'core:edit_menu' user.id %}">Edit Base Menu</a></h5>
+        <p>If you already have a base menu, edit it <a href="{% url 'core:edit_menu' user.id %}">here</a></p>
+      </div>
+      <div id="item-3">
+        <h5><a href="{% url 'core:create_custom_menu' user.id %}">Custom Menu</a></h5>
+        <p>...</p>
+      </div>
+      <div id="item-3-1">
+        <h5>Item 3-1</h5>
+        <p>...</p>
+      </div>
+      <div id="item-3-2">
+        <h5>Item 3-2</h5>
+        <p>...</p>
+      </div>
+    </div>
+  </div>
+</div>
+<p><a href="{% url 'core:create_base_menu' user.id %}">Create Base Menu</a><br>
+<br><br>
+<a href="">Create a custom menu</a>:<br>
+If you have a special or seasonal menu for a specific location, add that menu here, and apply that menu to the location of your choosing.<br>
+</p>
 
 
-		<!--User is logged in and is a customer -->
-		{% else %}
-			{% if customer_location %}
 
-			{{ customer_location }}<br>
-				<a href="{% url 'core:update_customer_location' user.id %}">Update Location</a><br>
-				<a href="{% url 'orders:place_order' user.id %}">Place an order</a>
-			{% else %}
-				<a href="{% url 'core:customer_location' user.id %}">Choose Location</a>
-			{% endif %}
-			
-		
+{% else %}
+{% endif %}
 
-		{% endif %}
-	<!--User is not logged in -->
-	{% else %}
-	<a href="{% url 'users:login' %}">Login</a><br>
-	<a href="{% url 'users:register' %}">Register</a>
-	{% endif %}
-
-	{% endblock content %}
-</body>
-
-</html>
+{% endblock %}

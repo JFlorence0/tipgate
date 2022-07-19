@@ -9,6 +9,9 @@ urlpatterns = [
 	# Home page
 	path('', views.home, name='home'),
 
+	# Manage menus
+	path('manage_menus/<int:user_id>/', views.manage_menus, name='manage_menus'),
+
 	# View the venue's menu, POV of Venue
 	path('venue_menu_view/<int:user_id>/', views.venue_menu_view, name='venue_menu_view'),
 	
@@ -31,7 +34,8 @@ urlpatterns = [
 	path('add_main_course_video/<int:entree_id>/', views.add_main_course_video, name='add_main_course_video'),
 	# Edit a main course
 	path('edit_main_course/<int:entree_id>/', views.edit_main_course, name='edit_main_course'),
-
+	# Remove a main course item
+	path('remove_main_course/<int:entree_id>/', views.remove_main_course, name='remove_main_course'),
 	# View Entree
 	path('entree_view/<int:entree_id>/', views.entree_view, name='entree_view'),
 

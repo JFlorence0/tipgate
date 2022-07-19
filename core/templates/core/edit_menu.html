@@ -37,7 +37,7 @@
       <div class="accordion-body">
       	<small><a href="{% url 'core:add_main_course_video' entree.id %}">Update/View Video</a></small><br>
     		<small><a href="{% url 'core:edit_main_course' entree.id %}">Edit Ingredients/Description</a></small><br>
-    		<small><a href="">Remove item from menu</a></small><br><br>
+    		<small><a href="{% url 'core:edit_menu' user.id %}">Remove item from menu</a></small><br><br>
         <strong>{{ entree.name }}:</strong> {{ entree.description }}.<br> Ingredients:<br>{{ entree.ingredient1 }}, {{ entree.ingredient2 }}, {{ entree.ingredient3 }}, {{ entree.ingredient4 }}
       </div>
     </div>

@@ -124,10 +124,11 @@ class CustomerOrder(models.Model):
 		return f"{self.entree}, {self.drink}"
 
 class CustomMenu(models.Model):
-	custom_menu_owner = models.OneToOneField(Venue, on_delete=models.CASCADE)
+	custom_menu_owner = models.ForeignKey(Venue, on_delete=models.CASCADE)
+	name = models.CharField(max_length=50)
 
 	def __str__(self):
-		return f"{self.custom_menu_owner}"
+		return f"{self.name}"
 
 class CustomEntree(models.Model):
 	custom_menu = models.ForeignKey(CustomMenu, on_delete=models.CASCADE)
@@ -205,9 +206,8 @@ class CustomDrinkVideo(models.Model):
 		return f"{self.custom_drink}"
 
 class SelectCustomMenu(models.Model):
-	VENUE_CHOICES = tuple([(venue.venue_name,venue.venue_name) for venue in Venue.objects.all()])
 	owner = models.ForeignKey(Account, on_delete=models.CASCADE)
-	venue = models.CharField(max_length=100, choices=VENUE_CHOICES)
+	venue = models.ForeignKey(Venue, on_delete=models.CASCADE)
 	
 	def __str__(self):
 		return f"{self.venue}"

@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+{% extends 'core/base.html' %}
+{% load bootstrap4 %}
+{% block navbar %}
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>TipGate</title>
+</head>
+<body>
+	{% endblock navbar %}
+	{% block content %}
+	<p>Logged in as {{ user }}</p>
+	<!--User is logged in -->
+	{% if request.user.is_authenticated %}
+		<!--User is logged in and is a venue -->
+		{% if request.user.is_venue == True %}
+			<p>Welcome, {{ request.user.first_name }}, you are logged in as: {{ request.user.email }}.<br>
+			You are logged in as a venue and you have {{ num_venues }} registered.</p>
+			<p>If you own or manage multiple venues, you can register a new location here:<a href="{% url 'core:venue_form' user.id %}">
+			Register A Venue</a></p><br><br>
+			
+			<!--If the venue has a menu -->
+			{% if menu %}
+				<div class="row">
+  					<div class="col-sm-6">
+    					<div class="card text-center">
+      						<div class="card-body">
+        						<h5 class="card-title">View Base Menu</h5>
+        						<small class="card-text"><em>Default menu for all venues</em></small><br><br>
+        						<p class="card-text">View the base menu as the customers will see it</p>
+        						<a href="{% url 'core:venue_menu_view' user.id %}" class="btn btn-primary">View Base Menu</a>
+      						</div>
+    					</div>
+  					</div>
+				
+				 <div class="col-sm-6" >
+    				<div class="card text-center">
+      					<div class="card-body">
+        					<h5 class="card-title">Edit Base Menu</h5>
+        					<p class="card-text">Add/remove items from the base menu. Add video to your menu items for a dynamic customer experience.</p>
+        					<a href="{% url 'core:edit_menu' user.id %}" class="btn btn-primary">Edit Base Menu</a>
+      					</div>
+   					</div>
+  				</div>
+
+  				 <div class="col-sm-6" >
+    				<div class="card text-center">
+      					<div class="card-body">
+        					<h5 class="card-title">Create A Custom Menu</h5>
+        					<p class="card-text">Create a custom menu for a specific venue.</p>
+        					<a href="{% url 'core:create_custom_menu' user.id %}" class="btn btn-primary">Create Custom Menu</a>
+      					</div>
+   					</div>
+  				</div>
+
+  				<div class="col-sm-6" >
+    				<div class="card text-center">
+      					<div class="card-body">
+        					<h5 class="card-title">Edit Custom Menu</h5>
+        					<p class="card-text">Edit custom menu for a specific location</p>
+        					<a href="{% url 'core:edit_custom_menu' user.id %}" class="btn btn-primary">Edit Custom Menu</a>
+      					</div>
+   					</div>
+  				</div>
+
+  				<div class="col-sm-6" >
+    				<div class="card text-center">
+      					<div class="card-body">
+        					<h5 class="card-title">View A Custom Menu</h5>
+        					<p class="card-text">Add/remove items from a custom menu. Add video to your menu items for a dynamic customer experience.</p>
+        					<a href="{% url 'core:select_custom_menu' user.id %}" class="btn btn-primary">View Custom Menu</a>
+      					</div>
+   					</div>
+  				</div>
+				</div>
+					
+
+			<!--If the venue does not have a menu -->
+			{% else %}
+					<h4>Create A Base Menu</h4><br>
+					<small>The base menu will be the default menu to all of the owners' restaurants.</small><br>
+					<a href="{% url 'core:create_base_menu' user.id %}">Create Base Menu</a><br>
+			{% endif %}
+
+
+		<!--User is logged in and is a customer -->
+		{% else %}
+			{% if customer_location %}
+
+			{{ customer_location }}<br>
+				<a href="{% url 'core:update_customer_location' user.id %}">Update Location</a><br>
+				<a href="{% url 'orders:place_order' user.id %}">Place an order</a>
+			{% else %}
+				<a href="{% url 'core:customer_location' user.id %}">Choose Location</a>
+			{% endif %}
+			
+		
+
+		{% endif %}
+	<!--User is not logged in -->
+	{% else %}
+	<a href="{% url 'users:login' %}">Login</a><br>
+	<a href="{% url 'users:register' %}">Register</a>
+	{% endif %}
+
+	{% endblock content %}
+</body>
+
+</html>
