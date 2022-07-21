@@ -128,7 +128,7 @@ class CustomMenu(models.Model):
 	name = models.CharField(max_length=50)
 
 	def __str__(self):
-		return f"{self.name}"
+		return f"{self.custom_menu_owner}"
 
 class CustomEntree(models.Model):
 	custom_menu = models.ForeignKey(CustomMenu, on_delete=models.CASCADE)

@@ -12,6 +12,11 @@
 <small><a href="{% url 'core:home' %}">->Back</a></small>
 {% endblock navbar %}
 {% block content %}
+<p>
+	<br>Register a location of your venue.<br>
+	Your venue will use the base menu unless a custom menu is specified.
+	<small><a href="">What is a custom menu?</a></small>
+</p>
 	<form action="{% url 'core:venue_form' user.id %}" method='post'>
 		{% csrf_token %}
 		{{ form.as_p }}

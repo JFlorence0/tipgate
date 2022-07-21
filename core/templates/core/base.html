@@ -44,6 +44,12 @@
             	<li>
             		<a class="dropdown-item" href="{% url 'core:create_custom_menu' user.id%}">Create Custom Menu</a>
             	</li>
+              <li>
+                <a class="dropdown-item" href="{% url 'core:edit_custom_menu' user.id %}">Edit Custom Menu</a>
+              </li>
+            	<li>
+            		<a class="dropdown-item" href="">View Custom Menu</a>
+            	</li>
           	</ul>
         	</li>
         {% else %}

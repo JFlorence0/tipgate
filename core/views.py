@@ -432,6 +432,11 @@ def edit_custom_menu(request, user_id):
 	context = {'user':user, 'entrees':entrees, 'sides':sides, 'drinks':drinks}
 	return render(request, 'core/edit_custom_menu.html', context)
 
+def view_custom_menu(request, user_id):
+	user = Account.objects.get(id=user_id)
+	context = {'user':user}
+	return render(request, 'core/view_custom_menu.html', context)
+
 
 def add_custom_entree(request, user_id):
 	user = Account.objects.get(id=user_id)

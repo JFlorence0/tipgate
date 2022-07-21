@@ -70,8 +70,9 @@ class CustomMenuForm(forms.ModelForm):
 
 	class Meta:
 		model = CustomMenu
-		fields = ('custom_menu_owner',)
-		labels = {'custom_menu_owner': 'Choose Venue'}
+		fields = ('custom_menu_owner', 'name')
+		labels = {'custom_menu_owner': 'Choose Venue',
+			'name':'Menu Name'}
 
 class CustomEntreeForm(forms.ModelForm):
 

@@ -17,8 +17,8 @@
         </nav>
         <a class="nav-link" href="#item-3">Custom Menu</a>
         <nav class="nav nav-pills flex-column">
-          <a class="nav-link ms-3 my-1" href="#item-3-1">Item 3-1</a>
-          <a class="nav-link ms-3 my-1" href="#item-3-2">Item 3-2</a>
+          <a class="nav-link ms-3 my-1" href="#item-3-1">Edit Custom Menu</a>
+          <a class="nav-link ms-3 my-1" href="#item-3-2">View Custom Menu</a>
         </nav>
       </nav>
     </nav>
@@ -27,37 +27,32 @@
   <div class="col-8">
     <div data-bs-spy="scroll" data-bs-target="#navbar-example3" data-bs-smooth-scroll="true" class="scrollspy-example-2" tabindex="0">
       <div id="item-1">
-        <h5><a href="">Register a Venue</a></h5>
+        <h5><a href="{% url 'core:venue_form' user.id %}">Register a Venue</a></h5>
         <p>If you have more than one location, add it <a href="{% url 'core:venue_form' user.id %}">here</a></p>
       </div>
       <div id="item-2">
         <h5><a href="{% url 'core:create_base_menu' user.id %}">Create Base Menu</a></h5>
-        <p>The base menu will be your default menu for one or all of your locations. Create your base menu <a href="{% url 'core:create_base_menu' user.id %}">here</a></p>
+        <p>The base menu will be your default menu for one or all of your locations. After you create your menu, add video to each menu item for a greater customer experience. Create your base menu <a href="{% url 'core:create_base_menu' user.id %}">here</a></p>
       </div>
       <div id="item-2-1">
         <h5><a href="{% url 'core:edit_menu' user.id %}">Edit Base Menu</a></h5>
         <p>If you already have a base menu, edit it <a href="{% url 'core:edit_menu' user.id %}">here</a></p>
       </div>
       <div id="item-3">
-        <h5><a href="{% url 'core:create_custom_menu' user.id %}">Custom Menu</a></h5>
-        <p>...</p>
+        <h5><a href="{% url 'core:create_custom_menu' user.id %}">Create Custom Menu</a></h5>
+        <p>Create a custom menu for a specific location. This where you would create a seasonal menu to add items that may not be available at all locations. Create a custom menu <a href="{% url 'core:create_custom_menu' user.id %}">here</a>.</p>
       </div>
       <div id="item-3-1">
-        <h5>Item 3-1</h5>
-        <p>...</p>
+        <h5><a href="{% url 'core:edit_custom_menu' user.id %}">Edit Custom Menu</a></h5>
+        <p><p>If you already have a custom menu, edit it <a href="{% url 'core:edit_custom_menu' user.id %}">here</a></p></p>
       </div>
       <div id="item-3-2">
-        <h5>Item 3-2</h5>
-        <p>...</p>
+        <h5><a href="">View a custom menu</a></h5>
+        <p>Choose which custom menu you'd like to view as the customer will see it.</p>
       </div>
     </div>
   </div>
 </div>
-<p><a href="{% url 'core:create_base_menu' user.id %}">Create Base Menu</a><br>
-<br><br>
-<a href="">Create a custom menu</a>:<br>
-If you have a special or seasonal menu for a specific location, add that menu here, and apply that menu to the location of your choosing.<br>
-</p>
 
 
 

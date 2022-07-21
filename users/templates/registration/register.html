@@ -6,6 +6,7 @@
 <body>
 	<small><a href="{% url 'core:home' %}">->Back</a></small>
 	<h2>Register</h2>
+	
 	<form method="post">
 		{% csrf_token %}
 		{% for field in registration_form %}

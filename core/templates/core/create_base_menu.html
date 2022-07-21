@@ -11,7 +11,10 @@
 <body>
 {% endblock navbar %}
 {% block content %}
-	{{ venue_instance }}
+<p>
+	Create a base menu.<br>
+	This will be you default menu for ALL locations unless otherwise specified.
+</p>
 	<form action="{% url 'core:create_base_menu' user.id %}" method="post">
 		{% csrf_token %}
 		{{ form.as_p }}
